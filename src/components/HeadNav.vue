@@ -1,20 +1,26 @@
 <template>
-    <header class="head-nav">
+    <header class="shadowBox head-nav">
         <div class="headContent">
-            <div class="tableTitle">
+            <div class="headTitle MB30">
               <span>SEO META EDIT</span>
             </div>
-
-
+            <p class="headSTitle">Choose Conditions</p>
+            <el-form :model="searchData" class="demo-form-inline" label-width="0">
+              <el-form-item>
+                <el-select v-model="searchData.pagVal" placeholder="Pinterest"  :class="'W400'">
+                  <el-option v-for="(item,title) in pagArray" :key="title" :label="item.title" :value="item.value"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item>
+                <el-select v-model="searchData.productVal" placeholder="Pinterest"  :class="'W400'">
+                  <el-option v-for="(item,title) in pagArray" :key="title" :label="item.title" :value="item.value"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" icon="view" style="margin-left: 500px;" @click="searchFun()" >Load Products</el-button>
+              </el-form-item>
+            </el-form>
         </div>
-
-
-
-
-
-
-
-
     </header>
 </template>
 <script>
@@ -25,21 +31,31 @@ export default {
   name: "head_nav",
   data() {
     return {
-      dialog: {
-        show: false,
-        title: "",
-        option: "edit"
-      }
+      pagArray:[
+        {title:'Page Categore',value:0},
+        {title:'Home Page',value:1},
+        {title:'Collections Page',value:2},
+        {title:'Products Page',value:3},
+      ],
+      productArray:[
+        {title:'All Products',value:0},
+        {title:'New In',value:1},
+        {title:'Hot Sale',value:2},
+      ],
+      searchData:{
+        pagVal:0,
+        productVal:0,
+      },
     };
   },
   computed: {
-    user() {
-      if(window.localStorage.getItem('user') == undefined){
-        base.LoginOut();
-      }else{
-        return window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : this.$store.getters.user
-      }
-    }
+    // user() {
+    //   // if(window.localStorage.getItem('user') == undefined){
+    //   //  // base.LoginOut();
+    //   // }else{
+    //   //   return window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : this.$store.getters.user
+    //   // }
+    // }
   },
   components: {
   },
@@ -62,11 +78,6 @@ export default {
       // 修改密码
       this.$router.push("/modifyPassword");
     },
-    logout() {
-      // 清除token
-      this.$store.dispatch("clearCurrentState");
-      base.LoginOut();
-    },
     changeMsg(){
       this.dialog = {
         show: true,
@@ -78,74 +89,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.head-nav {
-    width: 100%;
-    min-width: 600px;
-    padding: 5px;
-    background: #fff;
-    color: #fff;
-    border-bottom: 0px;
-}
-.headContent{
-    width: 1200px;
-    margin: 0 auto;
-}
-.logo-container {
-  line-height: 60px;
-  min-width: 400px;
-}
-.logo {
-    margin-left: 20px;
-    margin-right: 5px;
-    vertical-align: middle;
-    display: inline-block;
-    width: 42px;
-}
-.title {
-  vertical-align: middle;
-  font-size: 22px;
-  font-family: "Microsoft YaHei";
-  letter-spacing: 3px;
-}
-.user {
-  line-height: 60px;
-  text-align: right;
-  float: right;
-  padding-right: 10px;
-}
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  vertical-align: middle;
-  display: inline-block;
-}
-.welcome {
-  display: inline-block;
-  width: auto;
-  vertical-align: middle;
-  padding: 0 5px;
-}
-.name {
-  line-height: 20px;
-  text-align: center;
-  font-size: 14px;
-}
-.comename {
-  font-size: 12px;
-}
-.avatarname {
-  color: #409eff;
-  font-weight: bolder;
-}
-.username {
-  cursor: pointer;
-  margin-right: 5px;
-}
-.el-dropdown {
-  color: #fff;
-}
-
-</style>

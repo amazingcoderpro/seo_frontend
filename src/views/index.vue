@@ -22,11 +22,6 @@ html, body {margin: 0;padding: 0;}
 .index{
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
-.rightContainer {
-    position: relative;
-    width: 1200px;
-    margin: 0 auto;
-}
+
 </style>

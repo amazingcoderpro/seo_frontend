@@ -35,10 +35,10 @@ export function getLastTime(string){
 
 
 export function LoginOut(){
-  localStorage.removeItem('eleToken')
-  localStorage.removeItem('store')
-  localStorage.removeItem("user");
-  router.push('/login')
+  // localStorage.removeItem('eleToken')
+  // localStorage.removeItem('store')
+  // localStorage.removeItem("user");
+  // router.push('/login')
 }
 
 
