@@ -1,6 +1,6 @@
 <template>
     <div class="index"> 
-        <HeadNav></HeadNav>
+        <!-- <HeadNav></HeadNav> -->
         <div class="rightContainer">
             <router-view></router-view>
         </div>

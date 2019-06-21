@@ -4,6 +4,7 @@ import Notfount from './components/404.vue'
 
 import Index from './views/index'
 import Dashboard from './views/dashboard'
+import Login from './views/login'
 
 
 
@@ -30,11 +31,15 @@ const router = new Router({
       ]
     },
     {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
       path: '*',
       name: '/404',
       component: Notfount
-    },
-
+    }
   ]
 })
 
@@ -55,7 +60,7 @@ router.beforeEach((to,from,next) =>{
       //     next('/login')
       //   }
       }else{
-        next()
+        next('/login')
       }
   }
 });

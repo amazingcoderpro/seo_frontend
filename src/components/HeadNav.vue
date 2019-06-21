@@ -17,7 +17,10 @@
                 </el-select>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" icon="view" style="margin-left: 500px;" @click="searchFun()" >Load Products</el-button>
+                <el-input v-model="searchData.name" placeholder="Name" :class="'W400'"></el-input>
+              </el-form-item>
+              <el-form-item class="W768">
+                <el-button type="primary" icon="view" @click="searchFun()" class="FR">Load Products</el-button>
               </el-form-item>
             </el-form>
         </div>
@@ -45,17 +48,18 @@ export default {
       searchData:{
         pagVal:0,
         productVal:0,
+        name:''
       },
     };
   },
   computed: {
-    // user() {
-    //   // if(window.localStorage.getItem('user') == undefined){
-    //   //  // base.LoginOut();
-    //   // }else{
-    //   //   return window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : this.$store.getters.user
-    //   // }
-    // }
+    user() {
+      if(window.localStorage.getItem('user') == undefined){
+       base.LoginOut();
+      }else{
+        return window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : this.$store.getters.user
+      }
+    }
   },
   components: {
   },
@@ -85,6 +89,9 @@ export default {
         option: "put"
       };
 
+    },
+    searchFun(){
+         this.$emit('parentMethod',this.searchData.name);
     }
   }
 };

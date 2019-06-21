@@ -2,33 +2,35 @@
     <div class="shadowBox productList">
         <p class="headSTitle">Product List</p>
         
-        <el-table :data="tableData" style="width: 100%" height="600" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
-            <el-table-column type="index"></el-table-column>
-            <el-table-column label="Product Title" prop="Title"></el-table-column>
-            <el-table-column label="SKU" prop="SKU"></el-table-column>
-            <el-table-column label="Type" prop="Type"></el-table-column>
+        <el-table :data="tableData" style="width: 100%" height="530" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
+            <el-table-column label="ID" type="index" width="100" align="center"></el-table-column>
+            <el-table-column label="Product Title" prop="title"></el-table-column>
+            <el-table-column label="SKU" prop="sku"></el-table-column>
+            <el-table-column label="Type" prop="type"></el-table-column>
             <el-table-column type="expand">
                 <template slot-scope="props">
-                    <el-form class="demo-form-inline" label-width="0" ref="productFrom">
+                    <el-form class="demo-form-inline special" label-width="0">
                         <p class="headSTitle MB5">Title:</p>
                         <el-form-item>
-                            <el-input type="textarea" v-model="allEditdata.titleVal" class="W600"  placeholder="0 of 70 characters used"></el-input>
+                            <el-input type="textarea" v-model="allEditdata.remark_title" class="W600 titleTextarea" :maxLength="70"  placeholder="0 of 70 characters used"  prop="remark_title"></el-input>
+                            <div class="el-form-item__error" v-if="titleState">Title cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.titleChecked">Don't change meta title</el-checkbox></p>
                         <p class="headSTitle MB5">Description:</p>
                         <el-form-item>
-                            <el-input type="textarea" v-model="allEditdata.desVal" class="W600"  placeholder="0 of 320 characters used"></el-input>
+                            <el-input type="textarea" v-model="allEditdata.remark_description" class="W600" :maxLength="320"  placeholder="0 of 320 characters used"  prop="remark_description"></el-input>
+                            <div class="el-form-item__error" v-if="desState">Description cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p>
                         <el-form-item class="W600" >
-                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" style="float: right;">SUBMIT</el-button>
+                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" class="FR">SUBMIT</el-button>
                         </el-form-item>
                     </el-form> 
                     <div class="showNow">
                         <p class="headSTitle">Search engine listing preview</p>
-                        <p class="title">{{props.row.name}}</p>
+                        <p class="title">{{allEditdata.remark_title}}</p>
                         <p class="colorGreen">charrcter.myshopify.com/products/current_product_handle</p>
-                        <p class="littleMsg">{{props.row.shop}}</p>
+                        <p class="littleMsg">{{allEditdata.description}}</p>
                     </div>
                 </template>
             </el-table-column>
@@ -37,7 +39,6 @@
         <div class="paging">
           <el-pagination :page-sizes="page.pagesizes" :page-size="page.pagesize" @size-change="handleSizeChange" @current-change="current_change" layout="total, sizes, prev, pager, next, jumper" :total="page.total"></el-pagination>
         </div>
-
     </div>
 </template>
 
@@ -70,32 +71,30 @@ import * as base from '../assets/js/base'
             currentPage:1,//默认开始页面
         },
         tableData: [
-            {Title: '11111111',desVal:'1111111',SKU: '11111111',Type: '11111111',titleChecked:false,desChecked:true},
-            {Title: '2222222',desVal:'22222',SKU: '2222222',Type: '2222222',titleChecked:true,desChecked:true},
-            {Title: '33333',desVal:'33333',SKU: '33333',Type: '33333',titleChecked:true,desChecked:true},
-            {Title: '11111111',desVal:'1111111',SKU: '11111111',Type: '11111111',titleChecked:false,desChecked:true},
-            {Title: '2222222',desVal:'22222',SKU: '2222222',Type: '2222222',titleChecked:true,desChecked:true},
-            {Title: '33333',desVal:'33333',SKU: '33333',Type: '33333',titleChecked:true,desChecked:true},
-            {Title: '11111111',desVal:'1111111',SKU: '11111111',Type: '11111111',titleChecked:false,desChecked:true},
-            {Title: '2222222',desVal:'22222',SKU: '2222222',Type: '2222222',titleChecked:true,desChecked:true},
-            {Title: '33333',desVal:'33333',SKU: '33333',Type: '33333',titleChecked:true,desChecked:true},
-            {Title: '11111111',desVal:'1111111',SKU: '11111111',Type: '11111111',titleChecked:false,desChecked:true},
-            {Title: '2222222',desVal:'22222',SKU: '2222222',Type: '2222222',titleChecked:true,desChecked:true},
-            {Title: '33333',desVal:'33333',SKU: '33333',Type: '33333',titleChecked:true,desChecked:true},
-            {Title: '11111111',desVal:'1111111',SKU: '11111111',Type: '11111111',titleChecked:false,desChecked:true},
-            {Title: '2222222',desVal:'22222',SKU: '2222222',Type: '2222222',titleChecked:true,desChecked:true},
-            {Title: '33333',desVal:'33333',SKU: '33333',Type: '33333',titleChecked:true,desChecked:true},
-            {Title: '11111111',desVal:'1111111',SKU: '11111111',Type: '11111111',titleChecked:false,desChecked:true},
-            {Title: '2222222',desVal:'22222',SKU: '2222222',Type: '2222222',titleChecked:true,desChecked:true},
-            {Title: '33333',desVal:'33333',SKU: '33333',Type: '33333',titleChecked:true,desChecked:true},
-            {Title: '44444',desVal:'4444',SKU: '44444',Type: '44444',titleChecked:true,desChecked:true}
+            // {Title: '11111111',desVal:'1111111',SKU: '11111111',Type: '11111111',titleChecked:false,desChecked:true}
         ],
         allEditdata:{
-            titleVal:"Here's an Example of Product Title for All of the Products",
-            desVal:"Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.",
+            id:'',
+            title:'',
+            description:'',
+            remark_title:'',        //带百分号的title
+            remark_description:'',   //带百分号的description
+            product_list:null,
             titleChecked:false,
-            desChecked:false,
-        }
+            desChecked:false
+        },
+        rules: {
+          title: [
+            { required: true, message: "User title cannot be empty", trigger: "change" },
+            { min: 2, max: 30, message: "Length of 2 to 30 characters", trigger: "blur" }  
+          ],
+          description: [
+            { required: true, message: "description cannot be empty", trigger: "blur" },
+            { min: 6, max: 30, message: "Length of 6 to 30 characters", trigger: "blur" }
+          ]
+        },
+        titleState:false,
+        desState:false,
       }
     },
     mounted() {
@@ -103,12 +102,15 @@ import * as base from '../assets/js/base'
     },
     methods:{
         //  echarts自适应
-        init() {
-           // this.$axios(`/api/v1/product/?page=${this.page.currentPage}&page_size=${this.page.pagesize}`).then(res => {
-            this.$axios(`/api/v1/product/`).then(res => {
+        init(name) {
+            let url = `/api/v1/product/?is_paging=1&page=${this.page.currentPage}&page_size=${this.page.pagesize}`;
+            if(name){
+                url+=`&name=`+name;
+            }
+           this.$axios(url).then(res => {
                 if(res.data.code == 1){
                     this.tableData = res.data.data.results;
-                    this.total = res.data.data.count;
+                    this.page.total = res.data.data.count;
                 }else{
                     this.$message({
                         message: "code Abnormal!",
@@ -119,41 +121,30 @@ import * as base from '../assets/js/base'
             })
             .catch(error => {
                 this.$message({
-                    message: "Interface timeout!",
+                    message: error.message,
                     type: 'warning',
                     center: true
                 });
             });
-
-
-
-
-
-
-
-
-
-
-
-
-            this.tableData = this.tableData;
-            this.page.total = this.tableData.length;
         },
         submitFun(formName){
-            console.log(this.allEditdata)
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-
-            // this.$axios.post('/api/v1/account/login/',this.loginUser)
-            // .then(res => {
-
-            // })
-            // .catch(error => {
-            //     this.$message("Interface timeout!");
-            // });
-          }
-        });
-
+            this.allEditdata.remark_title == ''?this.titleState = true:this.titleState = false;
+            this.allEditdata.remark_description == ''?this.desState = true:this.desState = false;
+            if(!this.titleState && !this.desState){
+                this.allEditdata.product_list = JSON.stringify(this.allEditdata.product_list); 
+                this.$axios.post('/api/v1/product_motify/',this.allEditdata)
+                .then(res => {
+                    if(res.data.code == 1){
+                        this.$message({message: res.data.msg,type: 'success',center: true});
+                        this.init();
+                    }else{
+                        this.$message({message: res.data.msg,type: 'warning',center: true});
+                    }
+                })
+                .catch(error => {
+                    this.$message("Interface timeout!");
+                });
+            }
         },
         clickTable:function(row, column, cell, event){//展开事件日志列表
             if(cell.cellIndex!=3 && cell.cellIndex!=10){
@@ -161,10 +152,16 @@ import * as base from '../assets/js/base'
             }
         },
         expandSelect:function (row, expandedRows) {
-            this.allEditdata.titleVal = row.Title;
-            this.allEditdata.desVal = row.desVal;
-            this.allEditdata.titleChecked = row.titleChecked;
-            this.allEditdata.desChecked = row.desChecked;
+            this.allEditdata.id = row.id;
+            this.allEditdata.title = row.title;
+            this.allEditdata.remark_title = row.remark_title;
+            this.allEditdata.description = row.description;
+            this.allEditdata.remark_description = row.remark_description;
+            this.allEditdata.product_list = [];
+            this.allEditdata.product_list.push(row.id);
+
+            // this.allEditdata.titleChecked = row.titleChecked;
+            // this.allEditdata.desChecked = row.desChecked;
             var that = this
             if (expandedRows.length>1) {
                 that.expands = []

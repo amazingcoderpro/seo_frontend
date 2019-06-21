@@ -41,14 +41,13 @@ axios.interceptors.response.use(response => {
             break     
      
             case 401:    
-                error.message = '未授权，请登录' 
-                //base.LoginOut();
+                error.message = '未授权，请重新登录' 
+                base.LoginOut();
             break 
      
             case 403:          
-                Message.error('token值无效，请重新登录')
-                // 清除token
-               // base.LoginOut();
+                error.message = 'token值无效，请重新登录'
+                base.LoginOut();
             break    
      
             case 404:    error.message = `请求地址出错: ${error.response.config.url}` 
