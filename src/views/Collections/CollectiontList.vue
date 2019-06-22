@@ -1,5 +1,5 @@
 <template>
-    <div class="shadowBox productList">
+    <div class="shadowBox CollectionsList">
         <p class="headSTitle">Product List</p>
         
         <el-table :data="tableData" style="width: 100%" height="530" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
@@ -12,13 +12,13 @@
                     <el-form class="demo-form-inline special" label-width="0">
                         <p class="headSTitle MB5">Title:</p>
                         <el-form-item>
-                            <el-input type="textarea" v-model="allEditdata.remark_title" class="W600 titleTextarea" :maxLength="70"  placeholder="0 of 70 characters used"  prop="remark_title"></el-input>
+                            <el-input type="textarea" v-model="allEditdata.remark_title" class="W600 titleTextarea"  placeholder="0 of 70 characters used"  prop="remark_title"></el-input>
                             <div class="el-form-item__error" v-if="titleState">Title cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.titleChecked">Don't change meta title</el-checkbox></p>
                         <p class="headSTitle MB5">Description:</p>
                         <el-form-item>
-                            <el-input type="textarea" v-model="allEditdata.remark_description" class="W600" :maxLength="320"  placeholder="0 of 320 characters used"  prop="remark_description"></el-input>
+                            <el-input type="textarea" v-model="allEditdata.remark_description" class="W600"  placeholder="0 of 320 characters used"  prop="remark_description"></el-input>
                             <div class="el-form-item__error" v-if="desState">Description cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p>
@@ -28,9 +28,9 @@
                     </el-form> 
                     <div class="showNow">
                         <p class="headSTitle">Search engine listing preview</p>
-                        <p class="title">{{allEditdata.remark_title}}</p>
+                        <p class="title">{{allEditdata.showTitle}}</p>
                         <p class="colorGreen">charrcter.myshopify.com/products/current_product_handle</p>
-                        <p class="littleMsg">{{allEditdata.description}}</p>
+                        <p class="littleMsg">{{allEditdata.showDescription}}</p>
                     </div>
                 </template>
             </el-table-column>
@@ -58,10 +58,10 @@
 </style>
 
 <script>
-import * as base from '../assets/js/base'
+import * as base from '../../assets/js/base'
 
   export default {
-    name: "productList",
+    name: "CollectionsList",
     data() {
       return {
         page:{
@@ -75,13 +75,20 @@ import * as base from '../assets/js/base'
         ],
         allEditdata:{
             id:'',
-            title:'',
             description:'',
             remark_title:'',        //带百分号的title
             remark_description:'',   //带百分号的description
+            price: '',
+            type: '',
+            variants:'',     
+            title:'',
+            domain:'',
             product_list:null,
             titleChecked:false,
-            desChecked:false
+            desChecked:false,
+
+            showTitle:'',
+            showDescription:'',
         },
         rules: {
           title: [
@@ -97,15 +104,40 @@ import * as base from '../assets/js/base'
         desState:false,
       }
     },
+    watch:{
+        'allEditdata.remark_title': {
+            handler: function() {
+                let title = this.allEditdata.remark_title;
+                if(title){
+                    title = this.changString(title);
+                }else{
+                    title = '';
+                }
+                this.allEditdata.showTitle = title;
+            },
+        },
+        'allEditdata.remark_description': {
+            handler: function() {
+                let title = this.allEditdata.remark_description;
+                if(title){
+                    title = this.changString(title);
+                }else{
+                    title = '';
+                }
+                this.allEditdata.showDescription = title;
+            },
+        }
+
+    },
     mounted() {
         this.init();
     },
     methods:{
         //  echarts自适应
-        init(name) {
+        init(title) {
             let url = `/api/v1/product/?is_paging=1&page=${this.page.currentPage}&page_size=${this.page.pagesize}`;
-            if(name){
-                url+=`&name=`+name;
+            if(title){
+                url+=`&title=`+title;
             }
            this.$axios(url).then(res => {
                 if(res.data.code == 1){
@@ -157,6 +189,10 @@ import * as base from '../assets/js/base'
             this.allEditdata.remark_title = row.remark_title;
             this.allEditdata.description = row.description;
             this.allEditdata.remark_description = row.remark_description;
+            this.allEditdata.price = row.price;
+            this.allEditdata.type = row.type;
+            this.allEditdata.variants = row.variants;
+            this.allEditdata.domain = row.domain;
             this.allEditdata.product_list = [];
             this.allEditdata.product_list.push(row.id);
 
@@ -173,6 +209,29 @@ import * as base from '../assets/js/base'
                 that.expands = [];
             }
         },
+        changString:function(title){
+            
+            if(title.indexOf('%Product Type%')>=0){
+                title = title.replace(/%Product Type%/g,this.allEditdata.type);
+            }
+            if(title.indexOf('%Product Title%')>=0){
+                title = title.replace(/%Product Title%/g,this.allEditdata.title);
+            }
+            if(title.indexOf('%Variants%')>=0){
+                title = title.replace(/%Variants%/g,this.allEditdata.variants);
+            }
+            if(title.indexOf('%Product Price%')>=0){
+                title = title.replace(/%Product Price%/g,this.allEditdata.price);
+            }
+            if(title.indexOf('%Domain%')>=0){
+                let _thisDom = this.allEditdata.domain.split("https://")[1].split(".")[0]+".com"
+                title = title.replace(/%Domain%/g,_thisDom);
+            }
+            // if(title.indexOf('%Product Description%')>=0){
+            //     title = title.replace(/%Product Description%/g,this.allEditdata.domain);
+            // }
+            return title;
+        },
         current_change(val){
             //点击数字时触发
             this.page.currentPage = val;
@@ -185,8 +244,6 @@ import * as base from '../assets/js/base'
             this.init();
             this.$refs.refTable.bodyWrapper.scrollTop = 0;
         }
-        
-
     }
   }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <section class="form_container">
-                  <span class="title">PinBooster</span>
+                  <span class="title">SEO META EDIT</span>
                   <el-form :model="loginUser" :rules="rules" ref="loginForm" label-width="100px" class="loginForm">
                     
                     <el-form-item label="User Name" prop="username">
@@ -16,9 +16,9 @@
                       <el-button type="primary" class="submit_btn" @click="submitForm('loginForm')" >Login</el-button>
                     </el-form-item>
 
-                    <div class="tiparea">
+                    <!-- <div class="tiparea">
                         <p>No User Name?Now <router-link to='/shopfy_regist'>Regist</router-link> </p>
-                    </div>
+                    </div> -->
                   </el-form>
         </section>
     </div>

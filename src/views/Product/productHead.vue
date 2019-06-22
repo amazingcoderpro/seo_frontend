@@ -28,17 +28,17 @@
 </template>
 <script>
 
-import * as base from '../assets/js/base'
+import * as base from '../../assets/js/base'
 
 export default {
-  name: "head_nav",
+  name: "productHead",
   data() {
     return {
       pagArray:[
         {title:'Page Categore',value:0},
-        {title:'Home Page',value:1},
-        {title:'Collections Page',value:2},
-        {title:'Products Page',value:3},
+        {title:'Home Page',value:'/Home'},
+        {title:'Collections Page',value:'/Collections'},
+        {title:'Products Page',value:'/ProductShow'},
       ],
       productArray:[
         {title:'All Products',value:0},
@@ -46,7 +46,7 @@ export default {
         {title:'Hot Sale',value:2},
       ],
       searchData:{
-        pagVal:0,
+        pagVal:'/ProductShow',
         productVal:0,
         title:''
       },
@@ -61,7 +61,16 @@ export default {
       }
     }
   },
+  watch:{
+      'searchData.pagVal': {
+          handler: function() {
+            this.$router.push(this.searchData.pagVal);
+          },
+      }
+  },
   components: {
+  },
+  mounted() {
   },
   methods: {
     setDialogInfo(cmditem) {
@@ -80,7 +89,6 @@ export default {
     },
     modifyPassword() {
       // 修改密码
-      this.$router.push("/modifyPassword");
     },
     changeMsg(){
       this.dialog = {
