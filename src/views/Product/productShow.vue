@@ -26,9 +26,10 @@ export default {
     mounted() {
     },
     methods:{
-        initChild(name){
-             this.$refs.ProductEditAll.init(name);
-             this.$refs.ProductList.init(name);
+        initChild(title){            console.log(title)
+
+             this.$refs.ProductEditAll.init(title);
+             this.$refs.ProductList.init(title);
         }
     }
 }

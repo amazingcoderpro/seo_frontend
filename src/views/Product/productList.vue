@@ -2,8 +2,19 @@
     <div class="shadowBox productList">
         <p class="headSTitle">Product List</p>
         
-        <el-table :data="tableData" style="width: 100%" height="530" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
+        <el-table :data="tableData" style="width: 100%" height="1060" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
             <el-table-column label="ID" type="index" width="100" align="center"></el-table-column>
+            <el-table-column label="Img" width="100" align="center">
+              <template slot-scope="scope">
+                  <el-popover
+                    placement="right"
+                    title=""
+                    trigger="hover">
+                    <img :src="'data:image/jpeg;base64,'+scope.row.thumbnail"  :style="'width: 500px;'" width="100"/>
+                    <img slot="reference" :src="'data:image/jpeg;base64,'+scope.row.thumbnail" :alt="'data:image/jpeg;base64,'+scope.row.thumbnail" style="height: 70px;width: 70px">
+                  </el-popover>
+              </template> 
+            </el-table-column>
             <el-table-column label="Product Title" prop="title"></el-table-column>
             <el-table-column label="SKU" prop="sku"></el-table-column>
             <el-table-column label="Type" prop="type"></el-table-column>
