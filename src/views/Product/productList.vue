@@ -15,10 +15,10 @@
                   </el-popover>
               </template> 
             </el-table-column>
-            <el-table-column label="Product Title" prop="title"></el-table-column>
-            <el-table-column label="SKU" prop="sku"></el-table-column>
-            <el-table-column label="Type" prop="type"></el-table-column>
-            <el-table-column type="expand">
+            <el-table-column label="Product Title" prop="title" width="490"></el-table-column>
+            <el-table-column label="SKU" prop="sku" width="200"></el-table-column>
+            <el-table-column label="Type" prop="type" width="200"></el-table-column>
+            <el-table-column label="Operation" type="expand" width="100">
                 <template slot-scope="props">
                     <el-form class="demo-form-inline special" label-width="0">
                         <p class="headSTitle MB5">Title:</p>
@@ -41,7 +41,7 @@
                         <p class="headSTitle">Search engine listing preview</p>
                         <p class="title">{{allEditdata.showTitle}}</p>
                         <p class="colorGreen">charrcter.myshopify.com/products/current_product_handle</p>
-                        <p class="littleMsg">{{allEditdata.showDescription}}</p>
+                        <p class="littleMsg description">{{allEditdata.showDescription}}</p>
                     </div>
                 </template>
             </el-table-column>
@@ -99,7 +99,6 @@ import * as base from '../../assets/js/base'
             desChecked:false,
 
             showTitle:'',
-            showDescription:'',
         },
         rules: {
           title: [
@@ -132,6 +131,9 @@ import * as base from '../../assets/js/base'
                 let title = this.allEditdata.remark_description;
                 if(title){
                     title = this.changString(title);
+                    if(title.length>130){
+                        title = title.substring(0,130)+'...';
+                    }
                 }else{
                     title = '';
                 }

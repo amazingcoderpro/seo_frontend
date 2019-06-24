@@ -4,21 +4,19 @@
         
         <el-table :data="tableData" style="width: 100%" height="530" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
             <el-table-column label="ID" type="index" width="100" align="center"></el-table-column>
-            <el-table-column label="Product Title" prop="title"></el-table-column>
-            <el-table-column label="SKU" prop="sku"></el-table-column>
-            <el-table-column label="Type" prop="type"></el-table-column>
-            <el-table-column type="expand">
+            <el-table-column label="meta_title" prop="meta_title"></el-table-column>
+            <el-table-column type="expand" label="Operation" width="100">
                 <template slot-scope="props">
                     <el-form class="demo-form-inline special" label-width="0">
                         <p class="headSTitle MB5">Title:</p>
                         <el-form-item>
-                            <el-input type="textarea" v-model="allEditdata.remark_title" class="W600 titleTextarea"  placeholder="0 of 70 characters used"  prop="remark_title"></el-input>
+                            <el-input type="textarea" v-model="allEditdata.remark_title" class="W600 titleTextarea"  placeholder="0 of 70 characters used"  prop="remark_title" :disabled="!allEditdata.titleChecked"></el-input>
                             <div class="el-form-item__error" v-if="titleState">Title cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.titleChecked">Don't change meta title</el-checkbox></p>
                         <p class="headSTitle MB5">Description:</p>
                         <el-form-item>
-                            <el-input type="textarea" v-model="allEditdata.remark_description" class="W600"  placeholder="0 of 320 characters used"  prop="remark_description"></el-input>
+                            <el-input type="textarea" v-model="allEditdata.remark_description" class="W600"  placeholder="0 of 320 characters used"  prop="remark_description" :disabled="!allEditdata.desChecked"></el-input>
                             <div class="el-form-item__error" v-if="desState">Description cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p>
@@ -83,10 +81,10 @@ import * as base from '../../assets/js/base'
             variants:'',     
             title:'',
             domain:'',
-            product_list:null,
+            collection_list:null,
             titleChecked:false,
             desChecked:false,
-
+            meta_title:'',
             showTitle:'',
             showDescription:'',
         },
@@ -95,10 +93,10 @@ import * as base from '../../assets/js/base'
             { required: true, message: "User title cannot be empty", trigger: "change" },
             { min: 2, max: 30, message: "Length of 2 to 30 characters", trigger: "blur" }  
           ],
-          description: [
-            { required: true, message: "description cannot be empty", trigger: "blur" },
-            { min: 6, max: 30, message: "Length of 6 to 30 characters", trigger: "blur" }
-          ]
+        //   description: [
+        //     { required: true, message: "description cannot be empty", trigger: "blur" },
+        //     { min: 6, max: 30, message: "Length of 6 to 30 characters", trigger: "blur" }
+        //   ]
         },
         titleState:false,
         desState:false,
@@ -121,13 +119,15 @@ import * as base from '../../assets/js/base'
                 let title = this.allEditdata.remark_description;
                 if(title){
                     title = this.changString(title);
+                    if(title.length>130){
+                        title = title.substring(0,130)+'...';
+                    }
                 }else{
                     title = '';
                 }
                 this.allEditdata.showDescription = title;
             },
         }
-
     },
     mounted() {
         this.init();
@@ -135,7 +135,7 @@ import * as base from '../../assets/js/base'
     methods:{
         //  echarts自适应
         init(title) {
-            let url = `/api/v1/product/?is_paging=1&page=${this.page.currentPage}&page_size=${this.page.pagesize}`;
+            let url = `/api/v1/collection/?is_paging=1&page=${this.page.currentPage}&page_size=${this.page.pagesize}`;
             if(title){
                 url+=`&title=`+title;
             }
@@ -162,9 +162,9 @@ import * as base from '../../assets/js/base'
         submitFun(formName){
             this.allEditdata.remark_title == ''?this.titleState = true:this.titleState = false;
             this.allEditdata.remark_description == ''?this.desState = true:this.desState = false;
-            if(!this.titleState && !this.desState){
-                this.allEditdata.product_list = JSON.stringify(this.allEditdata.product_list); 
-                this.$axios.post('/api/v1/product_motify/',this.allEditdata)
+            if(!this.titleState){
+                this.allEditdata.collection_list = JSON.stringify(this.allEditdata.collection_list); 
+                this.$axios.post('/api/v1/collection/',this.allEditdata)
                 .then(res => {
                     if(res.data.code == 1){
                         this.$message({message: res.data.msg,type: 'success',center: true});
@@ -184,20 +184,12 @@ import * as base from '../../assets/js/base'
             }
         },
         expandSelect:function (row, expandedRows) {
-            this.allEditdata.id = row.id;
-            this.allEditdata.title = row.title;
+            this.allEditdata.collection_list = [];
+            this.allEditdata.collection_list.push(row.id);
+            this.allEditdata.meta_title = row.meta_title;
             this.allEditdata.remark_title = row.remark_title;
-            this.allEditdata.description = row.description;
             this.allEditdata.remark_description = row.remark_description;
-            this.allEditdata.price = row.price;
-            this.allEditdata.type = row.type;
-            this.allEditdata.variants = row.variants;
-            this.allEditdata.domain = row.domain;
-            this.allEditdata.product_list = [];
-            this.allEditdata.product_list.push(row.id);
 
-            // this.allEditdata.titleChecked = row.titleChecked;
-            // this.allEditdata.desChecked = row.desChecked;
             var that = this
             if (expandedRows.length>1) {
                 that.expands = []
@@ -212,24 +204,12 @@ import * as base from '../../assets/js/base'
         changString:function(title){
             
             if(title.indexOf('%Product Type%')>=0){
-                title = title.replace(/%Product Type%/g,this.allEditdata.type);
-            }
-            if(title.indexOf('%Product Title%')>=0){
-                title = title.replace(/%Product Title%/g,this.allEditdata.title);
-            }
-            if(title.indexOf('%Variants%')>=0){
-                title = title.replace(/%Variants%/g,this.allEditdata.variants);
-            }
-            if(title.indexOf('%Product Price%')>=0){
-                title = title.replace(/%Product Price%/g,this.allEditdata.price);
+                title = title.replace(/%Product Type%/g,this.allEditdata.meta_title);
             }
             if(title.indexOf('%Domain%')>=0){
                 let _thisDom = this.allEditdata.domain.split("https://")[1].split(".")[0]+".com"
                 title = title.replace(/%Domain%/g,_thisDom);
             }
-            // if(title.indexOf('%Product Description%')>=0){
-            //     title = title.replace(/%Product Description%/g,this.allEditdata.domain);
-            // }
             return title;
         },
         current_change(val){

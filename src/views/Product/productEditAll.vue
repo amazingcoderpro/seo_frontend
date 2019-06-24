@@ -32,7 +32,13 @@
             <p class="headSTitle">Search engine listing preview</p>
             <p class="title">{{allEditdata.remark_title}}</p>
             <p class="colorGreen">charrcter.myshopify.com/products/current_product_handle</p>
-            <p class="littleMsg">{{allEditdata.remark_description}}</p>
+            <p class="littleMsg description">{{allEditdata.show_description}}</p>
+        </div>
+        <div class="el-loading-mask is-fullscreen" style="background-color: rgba(0, 0, 0, 0.7); z-index: 2000;" v-if="shadowState">
+            <div class="el-loading-spinner">
+            <svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg>
+            <p class="el-loading-text">加载中...</p>
+            </div>
         </div>
     </div>
 </template>
@@ -69,9 +75,11 @@ export default {
                 remark_description:"",
                 titleChecked:false,
                 desChecked:false,
+                show_description:'',
             },
             tableData:[],
             subBtnState:false,
+            shadowState:true,
         }
     },
     watch:{
@@ -83,6 +91,15 @@ export default {
                     this.subBtnState = false;
                 }
             },
+        },
+        'allEditdata.remark_description': {
+            handler: function() {
+                let _des = this.allEditdata.remark_description;
+                if(this.allEditdata.remark_description.length>120){
+                   _des = this.allEditdata.remark_description.substring(0,120)+'...';
+                }
+                this.allEditdata.show_description = _des;
+            },
         }
     },
     mounted() {
@@ -90,12 +107,14 @@ export default {
     },
     methods:{
         init(title) {
+            this.shadowState = true;
             let url = `/api/v1/product/`;
             if(title){
                 url+=`?title=`+title;
             }
              this.$axios(url).then(res => {
                 if(res.data.code == 1){
+                    this.shadowState = false;
                     this.tableData = res.data.data;
                     if(this.tableData.length>0){
                         this.getIdList();
@@ -107,6 +126,7 @@ export default {
                 }
             })
             .catch(error => {
+                this.shadowState = false;
                 this.$message({message: error.message,type: 'warning',center: true});
             });      
 

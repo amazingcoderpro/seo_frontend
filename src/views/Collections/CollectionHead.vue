@@ -12,12 +12,14 @@
                 </el-select>
               </el-form-item>
               <el-form-item>
-                <el-select v-model="searchData.productVal" placeholder="Pinterest"  :class="'W400'">
-                  <el-option v-for="(item,title) in pagArray" :key="title" :label="item.title" :value="item.value"></el-option>
+                <el-select v-model="searchData.productVal" filterable :class="'W400'" @change="productValFun">
+                  <el-option :label="'Vague Search'" :value="-1"></el-option>
+                  <el-option :label="'All Products'" :value="''"></el-option>
+                  <el-option v-for="(item,meta_title) in productArray" :key="meta_title" :label="item.meta_title" :value="item.meta_title"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item>
-                <el-input v-model="searchData.title" placeholder="Title" :class="'W400'"></el-input>
+              <el-form-item v-if="searchTitleState">
+                <el-input v-model="searchData.searchTitle" placeholder="Title" :class="'W400'"></el-input>
               </el-form-item>
               <el-form-item class="W768">
                 <el-button type="primary" icon="view" @click="searchFun()" class="FR">Load Products</el-button>
@@ -40,16 +42,13 @@ export default {
         {title:'Collections Page',value:'/Collections'},
         {title:'Products Page',value:'/ProductShow'},
       ],
-      productArray:[
-        {title:'All Products',value:0},
-        {title:'New In',value:1},
-        {title:'Hot Sale',value:2},
-      ],
+      productArray:[],
       searchData:{
         pagVal:'/Collections',
-        productVal:0,
-        title:''
+        productVal:'',
+        searchTitle:''
       },
+      searchTitleState:false,
     };
   },
   computed: {
@@ -71,35 +70,40 @@ export default {
   components: {
   },
   mounted() {
+      this.init();
   },
   methods: {
-    setDialogInfo(cmditem) {
-      if (!cmditem) {
-        this.$message("菜单选项缺少command属性");
-        return;
-      }
-      switch (cmditem) {
-        case "modify_password":
-          this.changeMsg();
-          break;
-        case "logout":
-          this.logout();
-          break;
-      }
-    },
-    modifyPassword() {
-      // 修改密码
-    },
-    changeMsg(){
-      this.dialog = {
-        show: true,
-        title: "Modify Password",
-        option: "put"
-      };
-
+    init(){
+        this.productArray = [];
+        let url = `/api/v1/collection/`;
+        this.$axios(url).then(res => {
+            if(res.data.code == 1){
+                this.productArray = res.data.data;
+                console.log(this.productArray)
+            }else{
+                this.$message({message: "code Abnormal!",type: 'warning',center: true});
+            }
+        })
+        .catch(error => {
+            this.$message({message: error.message,type: 'warning',center: true});
+        }); 
     },
     searchFun(){
-         this.$emit('parentMethod',this.searchData.title);
+      if(this.searchTitleState){
+        //模糊搜索
+         this.$emit('parentMethod',this.searchData.searchTitle);
+      }else{
+          //指定搜索
+         this.$emit('parentMethod',this.searchData.productVal);
+      }
+    },
+    productValFun(){
+        if(this.searchData.productVal == -1){
+            this.searchTitleState = true;
+            this.searchData.searchTitle = '';
+        }else{
+            this.searchTitleState = false;
+        }
     }
   }
 };

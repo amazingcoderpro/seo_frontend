@@ -1,6 +1,6 @@
 <template>
     <div class="shadowBox CollectionsEditAll">
-        <p class="headSTitle">Collections Page All-In-One Meta Edit</p>
+        <p class="headSTitle">Collections Page All-In-One Meta Edit({{allEditdata.product_list_array.length}})</p>
         <p class="littleMsg">Set the rules for title and descriptions. It can help you to increase the outfit rate in the google search result.</p>
         <el-form :model="allEditdata" :rules="rules" class="demo-form-inline" label-width="0" ref="formName">
             <p class="headSTitle MB5">Title:</p>
@@ -12,8 +12,7 @@
             <el-form-item prop="remark_title">
                 <el-input type="textarea" v-model="allEditdata.remark_title" class="W768 titleTextarea" :maxLength="70" placeholder="0 of 70 characters used"></el-input>
             </el-form-item>
-            <p><el-checkbox v-model="allEditdata.titleChecked">Don't change meta title</el-checkbox></p>
-
+            <!-- <p><el-checkbox v-model="allEditdata.titleChecked">Don't change meta title</el-checkbox></p> -->
             <p class="headSTitle MB5">Description:</p>
             <el-form-item>
                 <template v-for="item in btnArray" >
@@ -23,7 +22,7 @@
             <el-form-item prop="remark_description">
                 <el-input type="textarea" v-model="allEditdata.remark_description" class="W768" :maxLength="320"   placeholder="0 of 320 characters used"></el-input>
             </el-form-item>
-            <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p>
+            <!-- <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p> -->
             <el-form-item class="W768" >
                     <el-button type="primary" icon="view" @click="submitFun('formName')" style="float: right;" :disabled="subBtnState">SUBMIT</el-button>
             </el-form-item>
@@ -51,20 +50,20 @@ export default {
                 ],
                 remark_description: [
                     { required: true, message: "description cannot be empty", trigger: "blur" },
-                    { min: 0, max: 100, message: "Length of 6 to 100 characters", trigger: "blur" }
+                    { min: 0, max: 500, message: "Length of 6 to 100 characters", trigger: "blur" }
                 ]
             },
             btnArray:[
                 {title:'Product Type',value:'%Product Type%',state:true},
-                {title:'Product Title',value:'%Product Title%',state:true},
-                {title:'Variants',value:'%Variants%',state:true},
+                {title:'Product Title',value:'%Product Title%',state:false},
+                {title:'Variants',value:'%Variants%',state:false},
                 {title:'Product Description',value:'%Product Description%',state:false},
-                {title:'Product Price',value:'%Product Price%',state:true},
+                {title:'Product Price',value:'%Product Price%',state:false},
                 {title:'Domain',value:'%Domain%',state:true}
             ],
             allEditdata:{
                 product_list_array:[],
-                product_list:"",
+                collection_list:"",
                 remark_title:"",
                 remark_description:"",
                 titleChecked:false,
@@ -90,7 +89,7 @@ export default {
     },
     methods:{
         init(title) {
-            let url = `/api/v1/product/`;
+            let url = `/api/v1/collection/`;
             if(title){
                 url+=`?title=`+title;
             }
@@ -126,8 +125,8 @@ export default {
         submitFun(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.allEditdata.product_list = JSON.stringify(this.allEditdata.product_list_array); 
-                    this.$axios.post('/api/v1/product_motify/',this.allEditdata)
+                    this.allEditdata.collection_list = JSON.stringify(this.allEditdata.product_list_array); 
+                    this.$axios.post('/api/v1/collection_motify/',this.allEditdata)
                     .then(res => {
                         console.log(res)
                         if(res.data.code == 1){

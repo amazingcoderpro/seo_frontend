@@ -49,8 +49,8 @@ module.exports = {
                 //target: 'http://127.0.0.1:8000/api/',
                 //target: 'https://pinbooster.seamarketings.com/api/', //正式发布
                 
-                target: 'http://172.24.1.139:8000/api/',   //方
-                //target: 'http://172.24.1.168:8000/api/',   //李
+                //target: 'http://172.24.1.139:8000/api/',   //方
+                target: 'http://172.24.1.168:8000/api/',   //李
                 ws: true,
                 changOrigin: true,
                 pathRewrite: {

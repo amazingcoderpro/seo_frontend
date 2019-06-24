@@ -47,4 +47,24 @@ textarea{height:100px!important;}
 textarea.titleTextarea{height:70px!important;}
 
 
-.bigBox{padding: 50px 0;}
+.bigBox{padding-bottom: 50px;word-break:keep-all;}
+
+
+.showNow .title{
+    width:600px;
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+.showNow .description{
+    width:600px;
+    display: -webkit-box !important;
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    word-break: break-all;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
