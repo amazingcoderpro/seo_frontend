@@ -47,6 +47,7 @@ export default {
   watch:{
       'searchData.pagVal': {
           handler: function() {
+            console.log(this.searchData.pagVal)
             this.$router.push(this.searchData.pagVal);
           },
       }
