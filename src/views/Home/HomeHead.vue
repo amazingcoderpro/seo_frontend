@@ -11,9 +11,9 @@
                   <el-option v-for="(item,title) in pagArray" :key="title" :label="item.title" :value="item.value"></el-option>
                 </el-select>
               </el-form-item>
-              <!-- <el-form-item class="W768">
+              <el-form-item class="W768">
                 <el-button type="primary" icon="view" @click="searchFun()" class="FR" disable="">Load Products</el-button>
-              </el-form-item> -->
+              </el-form-item>
             </el-form>
         </div>
     </header>
@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       pagArray:[
-        {title:'Page Categore',value:''},
+        {title:'Page Categore',value:'/Categore'},
         {title:'Home Page',value:'/Home'},
         {title:'Collections Page',value:'/Collections'},
         {title:'Products Page',value:'/ProductShow'},
@@ -45,12 +45,12 @@ export default {
     };
   },
   watch:{
-      'searchData.pagVal': {
-          handler: function() {
-            console.log(this.searchData.pagVal)
-            this.$router.push(this.searchData.pagVal);
-          },
-      }
+      // 'searchData.pagVal': {
+      //     handler: function() {
+      //       console.log(this.searchData.pagVal)
+      //       this.$router.push(this.searchData.pagVal);
+      //     },
+      // }
   },
   computed: {
     user() {
@@ -64,6 +64,9 @@ export default {
   components: {
   },
   methods: {
+    searchFun(){
+      this.$router.push(this.searchData.pagVal);
+    },
   }
 };
 </script>

@@ -29,9 +29,9 @@
         </el-form>  
         <div class="showNow">
             <p class="headSTitle">Search engine listing preview</p>
-            <p class="title">{{allEditdata.remark_title}}</p>
+            <p class="title">{{allEditdata.showTitle}}</p>
             <p class="colorGreen">charrcter.myshopify.com/products/current_product_handle</p>
-            <p class="littleMsg">{{allEditdata.remark_description}}</p>
+            <p class="littleMsg description">{{allEditdata.showDescription}}</p>
         </div>
     </div>
 </template>
@@ -68,6 +68,9 @@ export default {
                 remark_description:"",
                 titleChecked:false,
                 desChecked:false,
+
+                showTitle:"Here's an Example of Product Title for All of the Products",
+                showDescription:"Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.",
             },
             tableData:[],
             subBtnState:false,
@@ -81,6 +84,22 @@ export default {
                 }else{
                     this.subBtnState = false;
                 }
+            },
+        },
+        'allEditdata.remark_title': {
+            handler: function() {
+                let title = this.allEditdata.remark_title;
+                this.allEditdata.showTitle = title;
+            },
+        },
+        'allEditdata.remark_description': {
+            handler: function() {
+                let _des = this.allEditdata.remark_description;
+                console.log("123")
+                if(this.allEditdata.remark_description.length>120){
+                   _des = this.allEditdata.remark_description.substring(0,120)+'...';
+                }
+                this.allEditdata.showDescription = _des;
             },
         }
     },

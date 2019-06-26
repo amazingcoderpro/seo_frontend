@@ -29,7 +29,7 @@ export default {
       init(){
         this.state = base.getQueryString('state') == null?1:base.getQueryString('state');
         setTimeout(() => {
-               this.$router.push('/Home');
+               this.$router.push('/Categore');
               // window.close();
         }, 5000);
       },

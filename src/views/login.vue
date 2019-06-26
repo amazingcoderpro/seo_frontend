@@ -83,7 +83,7 @@ export default {
                     }
                     this.$store.dispatch("setAuthenticated", !this.isEmpty(token))
                     this.$store.dispatch("setUser", res.data.data.user)
-                    router.push('/Home');
+                    router.push('/Categore');
                 }else{
                   this.$message({
                     message: res.data.msg.detail,

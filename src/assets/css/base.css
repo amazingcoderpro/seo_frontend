@@ -33,9 +33,9 @@ body,
 
 .shadowBox{width:calc(100% - 5px);position:relative;min-height:200px;-webkit-box-shadow:2px 5px 5px #ccc;box-shadow:5px 5px 5px #ccc;margin-bottom:10px;padding:20px;background:#F2F2F2;}
 
-.head-nav{min-width:600px;background:#fff;color:#fff;}
-.headContent{width:1200px;margin:0 auto;}
-.rightContainer{position:relative;width:1200px;margin:0 auto;}
+.head-nav{min-width:600px;color:#fff;}
+.headContent{width:1200px;}
+.rightContainer{position: relative;width: 80%;left: 50px;}
 
 
 

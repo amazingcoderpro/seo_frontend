@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       pagArray:[
-        {title:'Page Categore',value:0},
+        {title:'Page Categore',value:'/Categore'},
         {title:'Home Page',value:'/Home'},
         {title:'Collections Page',value:'/Collections'},
         {title:'Products Page',value:'/ProductShow'},
@@ -61,11 +61,11 @@ export default {
     }
   },
   watch:{
-      'searchData.pagVal': {
-          handler: function() {
-            this.$router.push(this.searchData.pagVal);
-          },
-      }
+      // 'searchData.pagVal': {
+      //     handler: function() {
+      //       this.$router.push(this.searchData.pagVal);
+      //     },
+      // }
   },
   components: {
   },
@@ -88,6 +88,9 @@ export default {
         }); 
     },
     searchFun(){
+      if(location.href.indexOf(this.searchData.pagVal)<0){
+        this.$router.push(this.searchData.pagVal);
+      }
       if(this.searchTitleState){
         //模糊搜索
          this.$emit('parentMethod',this.searchData.searchTitle);

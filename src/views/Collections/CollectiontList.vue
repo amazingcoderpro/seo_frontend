@@ -85,8 +85,8 @@ import * as base from '../../assets/js/base'
             titleChecked:false,
             desChecked:false,
             meta_title:'',
-            showTitle:'',
-            showDescription:'',
+            showTitle:"Here's an Example of Product Title for All of the Products",
+            showDescription:"Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.",
         },
         rules: {
           title: [
@@ -130,7 +130,7 @@ import * as base from '../../assets/js/base'
         }
     },
     mounted() {
-        this.init();
+       // this.init();
     },
     methods:{
         //  echarts自适应

@@ -9,6 +9,7 @@ import AutState from './views/special/aut_state'
 import ProductShow from './views/Product/productShow'
 import Home from './views/Home/Home'
 import Collections from './views/Collections/Collections'
+import Categore from './views/Categore/Categore'
 
 
 
@@ -23,7 +24,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home',
+      redirect: '/Categore',
     },
     {
       path: '/index',
@@ -33,6 +34,7 @@ const router = new Router({
         { path: '/productShow', name: 'productShow', component: ProductShow },
         { path: '/home', name: 'home', component: Home },
         { path: '/Collections', name: 'Collections', component: Collections },
+        { path: '/Categore', name: 'Categore', component: Categore },
         
       ]
     },

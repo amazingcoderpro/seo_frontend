@@ -1,6 +1,6 @@
 <template>
     <header class="shadowBox head-nav">
-        <div class="headContent">
+        <div class="headContent FirstHead">
             <div class="headTitle MB30">
               <span>SEO META EDIT</span>
             </div>
@@ -11,16 +11,16 @@
                   <el-option v-for="(item,title) in pagArray" :key="title" :label="item.title" :value="item.value"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item>
+              <!-- <el-form-item>
                 <el-select v-model="searchData.productVal" filterable :class="'W400'" @change="productValFun">
                   <el-option :label="'Vague Search'" :value="-1"></el-option>
                   <el-option :label="'All Products'" :value="''"></el-option>
                   <el-option v-for="(item,meta_title) in productArray" :key="meta_title" :label="item.meta_title" :value="item.meta_title"></el-option>
                 </el-select>
-              </el-form-item>
-              <el-form-item v-if="searchTitleState">
+              </el-form-item> -->
+              <!-- <el-form-item v-if="searchTitleState">
                 <el-input v-model="searchData.searchTitle" placeholder="Title" :class="'W400'"></el-input>
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item class="W768">
                 <el-button type="primary" icon="view" @click="searchFun()" class="FR">Load Products</el-button>
               </el-form-item>
@@ -33,7 +33,7 @@
 import * as base from '../../assets/js/base'
 
 export default {
-  name: "CollectionsHead",
+  name: "CategoreHead",
   data() {
     return {
       pagArray:[
@@ -44,7 +44,7 @@ export default {
       ],
       productArray:[],
       searchData:{
-        pagVal:'/Collections',
+        pagVal:'/Categore',
         productVal:'',
         searchTitle:''
       },
@@ -89,9 +89,7 @@ export default {
         }); 
     },
     searchFun(){
-      if(location.href.indexOf(this.searchData.pagVal)<0){
-        this.$router.push(this.searchData.pagVal);
-      }
+      this.$router.push(this.searchData.pagVal);
       if(this.searchTitleState){
         //模糊搜索
          this.$emit('parentMethod',this.searchData.searchTitle);
