@@ -79,7 +79,6 @@ export default {
         this.$axios(url).then(res => {
             if(res.data.code == 1){
                 this.productArray = res.data.data;
-                console.log(this.productArray)
             }else{
                 this.$message({message: "code Abnormal!",type: 'warning',center: true});
             }

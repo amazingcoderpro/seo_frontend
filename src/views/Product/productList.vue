@@ -34,7 +34,7 @@
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p>
                         <el-form-item class="W600" >
-                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" class="FR">SUBMIT</el-button>
+                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" class="FR" :disabled="allEditdata.btnState == 1">SUBMIT</el-button>
                         </el-form-item>
                     </el-form> 
                     <div class="showNow">
@@ -97,18 +97,18 @@ import * as base from '../../assets/js/base'
             product_list:null,
             titleChecked:false,
             desChecked:false,
-            
+            btnState:1,
             showTitle:"Here's an Example of Product Title for All of the Products",
             showDescription:"Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.",
         },
         rules: {
           title: [
             { required: true, message: "User title cannot be empty", trigger: "change" },
-            { min: 2, max: 30, message: "Length of 2 to 30 characters", trigger: "blur" }  
+            // { min: 2, max: 30, message: "Length of 2 to 30 characters", trigger: "blur" }  
           ],
           description: [
             { required: true, message: "description cannot be empty", trigger: "blur" },
-            { min: 6, max: 30, message: "Length of 6 to 30 characters", trigger: "blur" }
+            // { min: 6, max: 30, message: "Length of 6 to 30 characters", trigger: "blur" }
           ]
         },
         titleState:false,
@@ -140,6 +140,28 @@ import * as base from '../../assets/js/base'
                 }
                 this.allEditdata.showDescription = title;
             },
+        },
+        'allEditdata.titleChecked': {
+            handler: function() {
+                if(this.allEditdata.titleChecked){
+                    this.allEditdata.btnState = 2;
+                }else{
+                    if(!this.allEditdata.desChecked){
+                        this.allEditdata.btnState = 1;
+                    }
+                }
+            }
+        },
+        'allEditdata.desChecked': {
+            handler: function() {
+                if(this.allEditdata.desChecked){
+                    this.allEditdata.btnState = 2;
+                }else{
+                    if(!this.allEditdata.titleChecked){
+                        this.allEditdata.btnState = 1;
+                    }
+                }
+            }
         }
 
     },
@@ -200,9 +222,9 @@ import * as base from '../../assets/js/base'
         expandSelect:function (row, expandedRows) {
             this.allEditdata.id = row.id;
             this.allEditdata.title = row.title;
-            this.allEditdata.remark_title = row.remark_title;
+            this.allEditdata.remark_title = this.changString(row.remark_title);
             this.allEditdata.description = row.description;
-            this.allEditdata.remark_description = row.remark_description;
+            this.allEditdata.remark_description = this.changString(row.remark_description);
             this.allEditdata.price = row.price;
             this.allEditdata.type = row.type;
             this.allEditdata.variants = row.variants;

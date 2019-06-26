@@ -1,7 +1,7 @@
 <template>
     <div class="Collections bigBox">
         <CollectionHead @parentMethod="initChild"></CollectionHead>
-        <CollectionEditAll ref="CollectionEditAll"></CollectionEditAll>
+        <CollectionEditAll ref="CollectionEditAll" @parentMethod="initChild"></CollectionEditAll>
         <CollectiontList ref="CollectiontList"></CollectiontList>
     </div>
 </template>

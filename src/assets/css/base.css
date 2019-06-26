@@ -62,7 +62,7 @@ textarea.titleTextarea{height:70px!important;}
     overflow: hidden;
 
     text-overflow: ellipsis;
-    word-break: break-all;
+    word-break: keep-all;
 
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;

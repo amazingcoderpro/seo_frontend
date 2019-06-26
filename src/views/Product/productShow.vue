@@ -1,7 +1,7 @@
 <template>
     <div class="productShow bigBox">
         <ProductHead @parentMethod="initChild"></ProductHead>
-        <ProductEditAll ref="ProductEditAll"></ProductEditAll>
+        <ProductEditAll ref="ProductEditAll" @parentMethod="initChild"></ProductEditAll>
         <ProductList ref="ProductList"></ProductList>
     </div>
 </template>
@@ -26,8 +26,7 @@ export default {
     mounted() {
     },
     methods:{
-        initChild(title){            console.log(title)
-
+        initChild(title){
              this.$refs.ProductEditAll.init(title);
              this.$refs.ProductList.init(title);
         }

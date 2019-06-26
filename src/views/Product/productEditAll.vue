@@ -53,11 +53,11 @@ export default {
             rules: {
                 remark_title: [
                     { required: true, message: "User title cannot be empty", trigger: "change" },
-                    { min: 0, max: 100, message: "Length of 2 to 60 characters", trigger: "blur" }  
+                    // { min: 0, max: 100, message: "Length of 2 to 60 characters", trigger: "blur" }  
                 ],
                 remark_description: [
                     { required: true, message: "description cannot be empty", trigger: "blur" },
-                    { min: 0, max: 100, message: "Length of 6 to 100 characters", trigger: "blur" }
+                    // { min: 0, max: 100, message: "Length of 6 to 100 characters", trigger: "blur" }
                 ]
             },
             btnArray:[
@@ -75,9 +75,11 @@ export default {
                 remark_description:"",
                 titleChecked:false,
                 desChecked:false,
+                searchTitle:'',
             
                 showTitle:"Here's an Example of Product Title for All of the Products",
                 showDescription:"Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.",
+                
             },
             tableData:[],
             subBtnState:false,
@@ -116,6 +118,7 @@ export default {
     methods:{
         init(title) {
             this.shadowState = true;
+            this.allEditdata.searchTitle = title;
             let url = `/api/v1/product/`;
             if(title){
                 url+=`?title=`+title;
@@ -157,8 +160,8 @@ export default {
                     this.allEditdata.product_list = JSON.stringify(this.allEditdata.product_list_array); 
                     this.$axios.post('/api/v1/product_motify/',this.allEditdata)
                     .then(res => {
-                        console.log(res)
                         if(res.data.code == 1){
+                            this.$emit('parentMethod',this.allEditdata.searchTitle);
                             this.$message({message: res.data.msg,type: 'success',center: true});
                         }else{
                             this.$message({message: res.data.msg,type: 'warning',center: true});

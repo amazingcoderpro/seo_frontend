@@ -20,15 +20,15 @@
                             <div class="el-form-item__error" v-if="desState">Description cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p>
-                        <el-form-item class="W600" >
-                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" class="FR">SUBMIT</el-button>
+                        <el-form-item class="W600" >   
+                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" class="FR" :disabled="allEditdata.btnState == 1">SUBMIT</el-button>
                         </el-form-item>
                     </el-form> 
                     <div class="showNow">
                         <p class="headSTitle">Search engine listing preview</p>
                         <p class="title">{{allEditdata.showTitle}}</p>
                         <p class="colorGreen">charrcter.myshopify.com/products/current_product_handle</p>
-                        <p class="littleMsg">{{allEditdata.showDescription}}</p>
+                        <p class="littleMsg description">{{allEditdata.showDescription}}</p>
                     </div>
                 </template>
             </el-table-column>
@@ -84,6 +84,9 @@ import * as base from '../../assets/js/base'
             collection_list:null,
             titleChecked:false,
             desChecked:false,
+
+            btnState:1,
+
             meta_title:'',
             showTitle:"Here's an Example of Product Title for All of the Products",
             showDescription:"Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.",
@@ -91,7 +94,7 @@ import * as base from '../../assets/js/base'
         rules: {
           title: [
             { required: true, message: "User title cannot be empty", trigger: "change" },
-            { min: 2, max: 30, message: "Length of 2 to 30 characters", trigger: "blur" }  
+            // { min: 2, max: 30, message: "Length of 2 to 30 characters", trigger: "blur" }  
           ],
         //   description: [
         //     { required: true, message: "description cannot be empty", trigger: "blur" },
@@ -127,6 +130,28 @@ import * as base from '../../assets/js/base'
                 }
                 this.allEditdata.showDescription = title;
             },
+        },
+        'allEditdata.titleChecked': {
+            handler: function() {
+                if(this.allEditdata.titleChecked){
+                    this.allEditdata.btnState = 2;
+                }else{
+                    if(!this.allEditdata.desChecked){
+                        this.allEditdata.btnState = 1;
+                    }
+                }
+            }
+        },
+        'allEditdata.desChecked': {
+            handler: function() {
+                if(this.allEditdata.desChecked){
+                    this.allEditdata.btnState = 2;
+                }else{
+                    if(!this.allEditdata.titleChecked){
+                        this.allEditdata.btnState = 1;
+                    }
+                }
+            }
         }
     },
     mounted() {
@@ -164,7 +189,7 @@ import * as base from '../../assets/js/base'
             this.allEditdata.remark_description == ''?this.desState = true:this.desState = false;
             if(!this.titleState){
                 this.allEditdata.collection_list = JSON.stringify(this.allEditdata.collection_list); 
-                this.$axios.post('/api/v1/collection/',this.allEditdata)
+                this.$axios.post('/api/v1/collection_motify/',this.allEditdata)
                 .then(res => {
                     if(res.data.code == 1){
                         this.$message({message: res.data.msg,type: 'success',center: true});
@@ -187,8 +212,9 @@ import * as base from '../../assets/js/base'
             this.allEditdata.collection_list = [];
             this.allEditdata.collection_list.push(row.id);
             this.allEditdata.meta_title = row.meta_title;
-            this.allEditdata.remark_title = row.remark_title;
-            this.allEditdata.remark_description = row.remark_description;
+            this.allEditdata.domain = row.domain;
+            this.allEditdata.remark_title = this.changString(row.remark_title);
+            this.allEditdata.remark_description =  this.changString(row.remark_description);
 
             var that = this
             if (expandedRows.length>1) {
@@ -202,13 +228,11 @@ import * as base from '../../assets/js/base'
             }
         },
         changString:function(title){
-            
             if(title.indexOf('%Product Type%')>=0){
                 title = title.replace(/%Product Type%/g,this.allEditdata.meta_title);
             }
             if(title.indexOf('%Domain%')>=0){
-                let _thisDom = this.allEditdata.domain.split("https://")[1].split(".")[0]+".com"
-                title = title.replace(/%Domain%/g,_thisDom);
+                title = title.replace(/%Domain%/g,this.allEditdata.domain);
             }
             return title;
         },
