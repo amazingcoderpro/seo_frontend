@@ -70,23 +70,11 @@ export default {
   components: {
   },
   mounted() {
-      this.init();
+    //  this.init();
   },
   methods: {
     init(){
-        this.productArray = [];
-        let url = `/api/v1/collection/`;
-        this.$axios(url).then(res => {
-            if(res.data.code == 1){
-                this.productArray = res.data.data;
-                console.log(this.productArray)
-            }else{
-                this.$message({message: "code Abnormal!",type: 'warning',center: true});
-            }
-        })
-        .catch(error => {
-            this.$message({message: error.message,type: 'warning',center: true});
-        }); 
+
     },
     searchFun(){
       this.$router.push(this.searchData.pagVal);
