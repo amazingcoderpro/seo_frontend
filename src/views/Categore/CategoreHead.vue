@@ -4,6 +4,7 @@
             <div class="headTitle MB30">
               <span>SEO META EDIT</span>
             </div>
+            <el-button type="primary" icon="view" @click="LoginOut" class="LoginOutBtn FR">Sign out</el-button>
             <p class="headSTitle">Choose Conditions</p>
             <el-form :model="searchData" class="demo-form-inline" label-width="0">
               <el-form-item>
@@ -76,6 +77,9 @@ export default {
   methods: {
     init(){
 
+    },
+    LoginOut(){
+       base.LoginOut();
     },
     searchFun(){
       this.$router.push(this.searchData.pagVal);

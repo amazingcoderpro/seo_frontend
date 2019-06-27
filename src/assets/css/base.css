@@ -68,3 +68,8 @@ textarea.titleTextarea{height:70px!important;}
     -webkit-line-clamp: 2;
 }
 
+.LoginOutBtn{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}

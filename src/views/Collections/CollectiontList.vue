@@ -232,7 +232,8 @@ import * as base from '../../assets/js/base'
                 title = title.replace(/%Product Type%/g,this.allEditdata.meta_title);
             }
             if(title.indexOf('%Domain%')>=0){
-                title = title.replace(/%Domain%/g,this.allEditdata.domain);
+                let _thisDom = this.allEditdata.domain.split(".")[1]+".com"
+                title = title.replace(/%Domain%/g,_thisDom);
             }
             return title;
         },
