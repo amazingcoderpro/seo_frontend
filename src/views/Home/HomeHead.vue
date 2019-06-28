@@ -29,7 +29,7 @@ export default {
     return {
       pagArray:[
         {title:'Page Categore',value:'/Categore'},
-        {title:'Home Page',value:'/Home'},
+        // {title:'Home Page',value:'/Home'},
         {title:'Collections Page',value:'/Collections'},
         {title:'Products Page',value:'/ProductShow'},
       ],

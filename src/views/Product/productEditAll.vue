@@ -1,6 +1,6 @@
 <template>
     <div class="shadowBox productEditAll">
-        <p class="headSTitle">Product Page All-In-One Meta Edit(Product Length:{{tableData.length}})</p>
+        <p class="headSTitle">Product Page All-In-One Meta Edit</p>
         <p class="littleMsg">Set the rules for title and descriptions. It can help you to increase the outfit rate in the google search result.</p>
         <el-form :model="allEditdata" :rules="rules" class="demo-form-inline" label-width="0" ref="formName">
             <p class="headSTitle MB5">Title:</p>
@@ -83,7 +83,7 @@ export default {
             },
             tableData:[],
             subBtnState:false,
-            shadowState:true,
+            shadowState:false,
         }
     },
     watch:{
@@ -119,7 +119,7 @@ export default {
         if(localStorage.remark_description_p){
             this.allEditdata.remark_description = localStorage.remark_description_p;
         }
-        this.init();
+        //this.init();
     },
     methods:{
         init(title) {

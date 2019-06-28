@@ -1,6 +1,6 @@
 <template>
     <div class="shadowBox CollectionsEditAll">
-        <p class="headSTitle">Collections Page All-In-One Meta Edit({{allEditdata.product_list_array.length}})</p>
+        <p class="headSTitle">Collections Page All-In-One Meta Edit</p>
         <p class="littleMsg">Set the rules for title and descriptions. It can help you to increase the outfit rate in the google search result.</p>
         <el-form :model="allEditdata" :rules="rules" class="demo-form-inline" label-width="0" ref="formName">
             <p class="headSTitle MB5">Title:</p>

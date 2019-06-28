@@ -1,6 +1,6 @@
 <template>
     <div class="shadowBox productList">
-        <p class="headSTitle">Product List</p>
+        <p class="headSTitle">Product List(Product Total : {{page.total}})</p>
         
         <el-table :data="tableData" style="width: 100%" height="691" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
             <el-table-column label="ID" type="index" width="100" align="center"></el-table-column>
