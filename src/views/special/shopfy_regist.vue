@@ -1,7 +1,7 @@
 <template>
   <div class="shopfy_regist">
     <section class="form_container">
-      <span class="title">PinBooster</span>
+      <span class="title">SEO META EDIT</span>
       <el-form
         :model="registUser"
         :rules="rules"

@@ -10,7 +10,7 @@
                 </template>
             </el-form-item>
             <el-form-item prop="remark_title">
-                <el-input type="textarea" v-model="allEditdata.remark_title" class="W768 titleTextarea" :maxLength="70" placeholder="0 of 70 characters used"></el-input>
+                <el-input type="textarea" v-model="allEditdata.remark_title" class="W600 titleTextarea" :maxLength="70" placeholder="0 of 70 characters used"></el-input>
             </el-form-item>
             <!-- <p><el-checkbox v-model="allEditdata.titleChecked">Don't change meta title</el-checkbox></p> -->
             <p class="headSTitle MB5">Description:</p>
@@ -20,10 +20,10 @@
                 </template>
             </el-form-item>
             <el-form-item prop="remark_description">
-                <el-input type="textarea" v-model="allEditdata.remark_description" class="W768" :maxLength="320"   placeholder="0 of 320 characters used"></el-input>
+                <el-input type="textarea" v-model="allEditdata.remark_description" class="W600" :maxLength="320"   placeholder="0 of 320 characters used"></el-input>
             </el-form-item>
             <!-- <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p> -->
-            <el-form-item class="W768" >
+            <el-form-item class="W600" >
                     <el-button type="primary" icon="view" @click="submitFun('formName')" style="float: right;" :disabled="subBtnState">SUBMIT</el-button>
             </el-form-item>
         </el-form>  
@@ -55,10 +55,10 @@ export default {
             },
             btnArray:[
                 {title:'Product Type',value:'%Product Type%',state:true},
-                {title:'Product Title',value:'%Product Title%',state:false},
-                {title:'Variants',value:'%Variants%',state:false},
-                {title:'Product Description',value:'%Product Description%',state:false},
-                {title:'Product Price',value:'%Product Price%',state:false},
+                // {title:'Product Title',value:'%Product Title%',state:false},
+                // {title:'Variants',value:'%Variants%',state:false},
+                // {title:'Product Description',value:'%Product Description%',state:false},
+                // {title:'Product Price',value:'%Product Price%',state:false},
                 {title:'Domain',value:'%Domain%',state:true}
             ],
             allEditdata:{
@@ -104,6 +104,12 @@ export default {
         }
     },
     mounted() {
+        if(localStorage.remark_title){
+            this.allEditdata.remark_title = localStorage.remark_title;
+        }
+        if(localStorage.remark_description){
+            this.allEditdata.remark_description = localStorage.remark_description;
+        }
         this.init();
     },
     methods:{
@@ -151,6 +157,8 @@ export default {
                         if(res.data.code == 1){
                             this.$emit('parentMethod',this.allEditdata.searchTitle);
                             this.$message({message: res.data.msg,type: 'success',center: true});
+                            localStorage.setItem("remark_title", this.allEditdata.remark_title);
+                            localStorage.setItem("remark_description", this.allEditdata.remark_description);
                         }else{
                             this.$message({message: res.data.msg,type: 'warning',center: true});
                         }

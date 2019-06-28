@@ -1,10 +1,10 @@
 <template>
     <div class="shadowBox CollectionsList">
-        <p class="headSTitle">Product List</p>
+        <p class="headSTitle">Collection List</p>
         
-        <el-table :data="tableData" style="width: 100%" height="530" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
+        <el-table :data="tableData" style="width: 100%" height="599" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
             <el-table-column label="ID" type="index" width="100" align="center"></el-table-column>
-            <el-table-column label="meta_title" prop="meta_title"></el-table-column>
+            <el-table-column label="Collection Name" prop="meta_title"></el-table-column>
             <el-table-column type="expand" label="Operation" width="100">
                 <template slot-scope="props">
                     <el-form class="demo-form-inline special" label-width="0">
@@ -209,12 +209,6 @@ import * as base from '../../assets/js/base'
             }
         },
         expandSelect:function (row, expandedRows) {
-            this.allEditdata.collection_list = [];
-            this.allEditdata.collection_list.push(row.id);
-            this.allEditdata.meta_title = row.meta_title;
-            this.allEditdata.domain = row.domain;
-            this.allEditdata.remark_title = this.changString(row.remark_title);
-            this.allEditdata.remark_description =  this.changString(row.remark_description);
 
             var that = this
             if (expandedRows.length>1) {
@@ -226,14 +220,22 @@ import * as base from '../../assets/js/base'
             } else {
                 that.expands = [];
             }
+            this.allEditdata.collection_list = [];
+            this.allEditdata.collection_list.push(row.id);
+            this.allEditdata.meta_title = row.meta_title;
+            this.allEditdata.domain = row.domain;
+            this.allEditdata.remark_title = this.changString(row.remark_title);
+            this.allEditdata.remark_description =  this.changString(row.remark_description);
         },
         changString:function(title){
-            if(title.indexOf('%Product Type%')>=0){
-                title = title.replace(/%Product Type%/g,this.allEditdata.meta_title);
-            }
-            if(title.indexOf('%Domain%')>=0){
-                let _thisDom = this.allEditdata.domain.split(".")[0]+".com"
-                title = title.replace(/%Domain%/g,_thisDom);
+            if(title){
+                if(title.indexOf('%Product Type%')>=0){
+                    title = title.replace(/%Product Type%/g,this.allEditdata.meta_title);
+                }
+                if(title.indexOf('%Domain%')>=0){
+                    let _thisDom = this.allEditdata.domain.split(".")[0]+".com"
+                    title = title.replace(/%Domain%/g,_thisDom);
+                }
             }
             return title;
         },

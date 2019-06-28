@@ -16,6 +16,7 @@ body,
 .W50{width:50%!important;margin-right:2%!important;}
 .W54{width:54%!important;margin-right:2%!important;}
 .W60{width:60%!important;margin-right:2%!important;}
+.W100{width:98%!important;margin-right:2%!important;}
 .W200{width:200px!important;margin-right:10px!important;}
 .W250{width:250px!important;margin-right:10px!important;}
 .W300{width:300px!important;margin-right:10px!important;}
@@ -28,6 +29,13 @@ body,
 .MB5{margin-bottom:5px!important;}
 .MB10{margin-bottom:10px;}
 .MB30{margin-bottom:30px;}
+
+
+.el-button--primary{
+    background-color: #169BD5!important;
+    border-color: #169BD5!important;
+}
+
 
 .colorGreen{color:#006633;}
 .shadowBox{width:calc(100% - 5px);position:relative;min-height:200px;-webkit-box-shadow:2px 5px 5px #ccc;box-shadow:5px 5px 5px #ccc;margin-bottom:10px;padding:20px;background:#F2F2F2;}
@@ -46,3 +54,20 @@ textarea.titleTextarea{height:70px!important;}
 .showNow .title{width:600px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .showNow .description{width:600px;display:-webkit-box !important;overflow:hidden;text-overflow:ellipsis;word-break:keep-all;-webkit-box-orient:vertical;-webkit-line-clamp:2;}
 .LoginOutBtn{position:absolute;top:20px;right:20px;}
+
+
+
+
+@media screen and (min-width: 1600px) {
+    .shadowBox{width:calc(95% - 16px);}
+    .rightContainer {width: 97%}
+    .CollectionsEditAll,
+    .CollectionsList{width: 38%;float: left;margin-right: 1%}
+    .CollectionsList{width: 53%;}
+    .productEditAll,
+    .productList{width: 38%;float: left;margin-right: 1%}
+    .productList{width: 53%;}
+}
+
+
+

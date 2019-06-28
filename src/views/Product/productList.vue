@@ -2,7 +2,7 @@
     <div class="shadowBox productList">
         <p class="headSTitle">Product List</p>
         
-        <el-table :data="tableData" style="width: 100%" height="1060" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
+        <el-table :data="tableData" style="width: 100%" height="691" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
             <el-table-column label="ID" type="index" width="100" align="center"></el-table-column>
             <el-table-column label="Img" width="100" align="center">
               <template slot-scope="scope">
@@ -220,6 +220,16 @@ import * as base from '../../assets/js/base'
             }
         },
         expandSelect:function (row, expandedRows) {
+            var that = this
+            if (expandedRows.length>1) {
+                that.expands = []
+                if (row) {
+                    that.expands.push(row);
+                }
+                this.$refs.refTable.toggleRowExpansion(expandedRows[0]);
+            } else {
+                that.expands = [];
+            }
             this.allEditdata.id = row.id;
             this.allEditdata.title = row.title;
             this.allEditdata.remark_title = this.changString(row.remark_title);
@@ -231,41 +241,31 @@ import * as base from '../../assets/js/base'
             this.allEditdata.domain = row.domain;
             this.allEditdata.product_list = [];
             this.allEditdata.product_list.push(row.id);
-
             // this.allEditdata.titleChecked = row.titleChecked;
             // this.allEditdata.desChecked = row.desChecked;
-            var that = this
-            if (expandedRows.length>1) {
-                that.expands = []
-                if (row) {
-                    that.expands.push(row);
-                }
-                this.$refs.refTable.toggleRowExpansion(expandedRows[0]);
-            } else {
-                that.expands = [];
-            }
         },
         changString:function(title){
-            
-            if(title.indexOf('%Product Type%')>=0){
-                title = title.replace(/%Product Type%/g,this.allEditdata.type);
+            if(title){
+                if(title.indexOf('%Product Type%')>=0){
+                    title = title.replace(/%Product Type%/g,this.allEditdata.type);
+                }
+                if(title.indexOf('%Product Title%')>=0){
+                    title = title.replace(/%Product Title%/g,this.allEditdata.title);
+                }
+                if(title.indexOf('%Variants%')>=0){
+                    title = title.replace(/%Variants%/g,this.allEditdata.variants);
+                }
+                if(title.indexOf('%Product Price%')>=0){
+                    title = title.replace(/%Product Price%/g,this.allEditdata.price);
+                }
+                if(title.indexOf('%Domain%')>=0){
+                    let _thisDom = this.allEditdata.domain.split("https://")[1].split(".")[0]+".com"
+                    title = title.replace(/%Domain%/g,_thisDom);
+                }
+                // if(title.indexOf('%Product Description%')>=0){
+                //     title = title.replace(/%Product Description%/g,this.allEditdata.domain);
+                // }
             }
-            if(title.indexOf('%Product Title%')>=0){
-                title = title.replace(/%Product Title%/g,this.allEditdata.title);
-            }
-            if(title.indexOf('%Variants%')>=0){
-                title = title.replace(/%Variants%/g,this.allEditdata.variants);
-            }
-            if(title.indexOf('%Product Price%')>=0){
-                title = title.replace(/%Product Price%/g,this.allEditdata.price);
-            }
-            if(title.indexOf('%Domain%')>=0){
-                let _thisDom = this.allEditdata.domain.split("https://")[1].split(".")[0]+".com"
-                title = title.replace(/%Domain%/g,_thisDom);
-            }
-            // if(title.indexOf('%Product Description%')>=0){
-            //     title = title.replace(/%Product Description%/g,this.allEditdata.domain);
-            // }
             return title;
         },
         current_change(val){

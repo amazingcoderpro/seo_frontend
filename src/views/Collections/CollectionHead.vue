@@ -14,8 +14,8 @@
               </el-form-item>
               <el-form-item>
                 <el-select v-model="searchData.productVal" filterable :class="'W400'" @change="productValFun">
-                  <el-option :label="'Vague Search'" :value="-1"></el-option>
-                  <el-option :label="'All Products'" :value="''"></el-option>
+                  <!-- <el-option :label="'Vague Search'" :value="-1"></el-option> -->
+                  <el-option :label="'All Collections'" :value="''"></el-option>
                   <el-option v-for="(item,meta_title) in productArray" :key="meta_title" :label="item.meta_title" :value="item.meta_title"></el-option>
                 </el-select>
               </el-form-item>
