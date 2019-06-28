@@ -1,6 +1,6 @@
 <template>
     <div class="shadowBox CollectionsList">
-        <p class="headSTitle">Collection List(Collection Total : {{tableData.length}})</p>
+        <p class="headSTitle">Collection List(Collection Total : {{page.total}})</p>
         
         <el-table :data="tableData" style="width: 100%" height="599" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
             <el-table-column label="ID" type="index" width="100" align="center"></el-table-column>
