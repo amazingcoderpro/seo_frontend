@@ -112,7 +112,7 @@ import * as base from '../../assets/js/base'
                 if(title){
                     title = this.changString(title);
                 }else{
-                    title = '';
+                    title = "Here's an Example of Product Title for All of the Products";
                 }
                 this.allEditdata.showTitle = title;
             },
@@ -126,7 +126,7 @@ import * as base from '../../assets/js/base'
                         title = title.substring(0,130)+'...';
                     }
                 }else{
-                    title = '';
+                    title = "Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.";
                 }
                 this.allEditdata.showDescription = title;
             },
