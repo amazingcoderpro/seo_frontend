@@ -64,7 +64,7 @@ export default {
                 {title:'Product Type',value:'%Product Type%',state:true},
                 {title:'Product Title',value:'%Product Title%',state:true},
                 {title:'Variants',value:'%Variants%',state:true},
-                // {title:'Product Description',value:'%Product Description%',state:false},
+                {title:'Product Description',value:'%Product Description%',state:true},
                 {title:'Product Price',value:'%Product Price%',state:true},
                 {title:'Domain',value:'%Domain%',state:true}
             ],
@@ -196,4 +196,5 @@ margin:5px 0;
     color: #0033FF;
 }
 
+.productEditAll .el-button--primary{margin-bottom: 5px;margin-left: 0;margin-right: 5px;}
 </style>

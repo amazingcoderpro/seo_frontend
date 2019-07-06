@@ -262,9 +262,9 @@ import * as base from '../../assets/js/base'
                     let _thisDom = this.allEditdata.domain.split("https://")[1].split(".")[0]+".com"
                     title = title.replace(/%Domain%/g,_thisDom);
                 }
-                // if(title.indexOf('%Product Description%')>=0){
-                //     title = title.replace(/%Product Description%/g,this.allEditdata.domain);
-                // }
+                if(title.indexOf('%Product Description%')>=0){
+                    title = title.replace(/%Product Description%/g,this.allEditdata.domain);
+                }
             }
             return title;
         },
