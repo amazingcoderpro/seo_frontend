@@ -40,12 +40,24 @@ body,
 .colorGreen{color:#006633;}
 .shadowBox{width:calc(100% - 5px);position:relative;min-height:200px;-webkit-box-shadow:2px 5px 5px #ccc;box-shadow:5px 5px 5px #ccc;margin-bottom:10px;padding:20px;background:#F2F2F2;}
 .head-nav{min-width:600px;color:#fff;}
-.headContent{width:1200px;}
-.rightContainer{position: relative;width: 80%;left: 1px;}
+/* .headContent{width:1200px;} */
+.rightContainer{position: relative;width: 80%;}
 
 .headTitle span{background:#169BD5;width:175px;color:#fff;display:inline-block;padding:10px 40px 10px 10px;font-size:20px;font-weight:600;-webkit-box-shadow:0 0 5px #006699;box-shadow:8px 6px 17px #006699;}
-.headSTitle{font-weight:600;font-size:16px;margin-bottom:30px;color:#000;word-break:keep-all;}
-.littleMsg{margin-bottom:30px;color:#000;font-size:14px;word-break:keep-all;}
+.headSTitle{font-weight:600;margin-bottom:30px;word-break:keep-all;
+    font-family: Arial, sans-serif; 
+    font-size: small;
+    line-height: 1.2;
+    text-align: left;
+    color: #1a0dab;
+}
+.littleMsg{margin-bottom:30px;word-break:keep-all;
+    font-family: arial,sans-serif;
+    font-size: small;
+    line-height: 1.2;
+    text-align: left;
+    color: #222;
+}
 .el-loading-mask{z-index:3000!important;}
 textarea{height:100px!important;}
 textarea.titleTextarea{height:70px!important;}
@@ -59,14 +71,14 @@ textarea.titleTextarea{height:70px!important;}
 
 
 @media screen and (min-width: 1600px) {
-    .shadowBox{width:calc(95% - 16px);}
-    .rightContainer {width: 97%}
+    .shadowBox{width:1816px;margin-left: 25px;}
+    .rightContainer {width: 100%}
     .CollectionsEditAll,
-    .CollectionsList{width: 38%;float: left;margin-right: 1%}
-    .CollectionsList{width: 53%;}
+    .CollectionsList{width: 784px;float: left;height: 740px;}
+    .CollectionsList{width: 967px;height: 740px;}
     .productEditAll,
-    .productList{width: 38%;float: left;margin-right: 1%}
-    .productList{width: 53%;}
+    .productList{width: 784px;float: left;height: 815px;}
+    .productList{width: 967px;height: 815px;}
 }
 
 

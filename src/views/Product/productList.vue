@@ -34,7 +34,7 @@
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p>
                         <el-form-item class="W600" >
-                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" class="FR" :disabled="allEditdata.btnState == 1">SUBMIT</el-button>
+                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" class="FR" :disabled="allEditdata.btnState == 1">Submit</el-button>
                         </el-form-item>
                     </el-form> 
                     <div class="showNow">
@@ -263,7 +263,7 @@ import * as base from '../../assets/js/base'
                     title = title.replace(/%Domain%/g,_thisDom);
                 }
                 if(title.indexOf('%Product Description%')>=0){
-                    title = title.replace(/%Product Description%/g,this.allEditdata.domain);
+                    title = title.replace(/%Product Description%/g,this.allEditdata.description);
                 }
             }
             return title;

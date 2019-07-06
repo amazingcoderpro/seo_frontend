@@ -24,7 +24,7 @@
             </el-form-item>
             <!-- <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p> -->
             <el-form-item class="W600" >
-                    <el-button type="primary" icon="view" @click="submitFun('formName')" style="float: right;" :disabled="subBtnState">SUBMIT</el-button>
+                    <el-button type="primary" icon="view" @click="submitFun('formName')" style="float: right;" :disabled="subBtnState">Submit</el-button>
             </el-form-item>
         </el-form>  
         <div class="showNow">

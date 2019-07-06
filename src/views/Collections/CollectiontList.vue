@@ -4,8 +4,8 @@
         
         <el-table :data="tableData" style="width: 100%" height="599" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
             <el-table-column label="ID" type="index" width="100" align="center"></el-table-column>
-            <el-table-column label="Collection Name" prop="meta_title"></el-table-column>
-            <el-table-column type="expand" label="Operation" width="100">
+            <el-table-column label="Collection Name" prop="meta_title" align="center" width="710"></el-table-column>
+            <el-table-column type="expand" label="Operation" width="130" align="right">
                 <template slot-scope="props">
                     <el-form class="demo-form-inline special" label-width="0">
                         <p class="headSTitle MB5">Title:</p>

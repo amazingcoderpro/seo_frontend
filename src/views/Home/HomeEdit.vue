@@ -11,7 +11,7 @@
                 <el-input type="textarea" v-model="allEditdata.remark_description" class="W768" :maxLength="320"   placeholder="0 of 320 characters used"></el-input>
             </el-form-item>
             <el-form-item class="W768" >
-                    <el-button type="primary" icon="view" @click="submitFun('formName')" style="float: right;">SUBMIT</el-button>
+                    <el-button type="primary" icon="view" @click="submitFun('formName')" style="float: right;">Submit</el-button>
             </el-form-item>
         </el-form>  
         <div class="showNow">

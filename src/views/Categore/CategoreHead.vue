@@ -11,7 +11,7 @@
                 <el-select v-model="searchData.pagVal" placeholder="Pinterest"  :class="'W400'">
                   <el-option v-for="(item,title) in pagArray" :key="title" :label="item.title" :value="item.value"></el-option>
                 </el-select>
-                <span style="color: #606266;">Please select the page you want to edit</span>
+                <!-- <span style="color: #606266;">Please select the page you want to edit</span> -->
               </el-form-item>
               <!-- <el-form-item>
                 <el-select v-model="searchData.productVal" filterable :class="'W400'" @change="productValFun">
