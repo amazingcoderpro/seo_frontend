@@ -230,15 +230,16 @@ import * as base from '../../assets/js/base'
             } else {
                 that.expands = [];
             }
+
             this.allEditdata.id = row.id;
+            this.allEditdata.domain = row.domain;
             this.allEditdata.title = row.title;
-            this.allEditdata.remark_title = this.changString(row.remark_title);
             this.allEditdata.description = row.description;
-            this.allEditdata.remark_description = this.changString(row.remark_description);
             this.allEditdata.price = row.price;
             this.allEditdata.type = row.type;
             this.allEditdata.variants = row.variants;
-            this.allEditdata.domain = row.domain;
+            this.allEditdata.remark_title = this.changString(row.remark_title);
+            this.allEditdata.remark_description = this.changString(row.remark_description);
             this.allEditdata.product_list = [];
             this.allEditdata.product_list.push(row.id);
             // this.allEditdata.titleChecked = row.titleChecked;
