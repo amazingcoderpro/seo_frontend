@@ -2,26 +2,26 @@
     <div class="shadowBox CollectionsList">
         <p class="headSTitle">Collection List(Collection Total : {{page.total}})</p>
         
-        <el-table :data="tableData" style="width: 100%" height="599" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
-            <el-table-column label="ID" type="index" width="100" align="center"></el-table-column>
-            <el-table-column label="Collection Name" prop="meta_title" align="center" width="710"></el-table-column>
-            <el-table-column type="expand" label="Operation" width="130" align="right">
+        <el-table :data="tableData" style="width: 100%" height="675" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
+            <el-table-column label="ID" type="index" width="120" align="center"></el-table-column>
+            <el-table-column label="Collection Name" prop="meta_title" align="left" width="710"></el-table-column>
+            <el-table-column type="expand" label="Operation" width="130">
                 <template slot-scope="props">
                     <el-form class="demo-form-inline special" label-width="0">
                         <p class="headSTitle MB5">Title:</p>
                         <el-form-item>
-                            <el-input type="textarea" v-model="allEditdata.remark_title" class="W600 titleTextarea"  placeholder="0 of 70 characters used"  prop="remark_title" :disabled="!allEditdata.titleChecked"></el-input>
+                            <el-input type="textarea" v-model="allEditdata.remark_title" class="W600 titleTextarea"  placeholder="0 of 70 characters used"  prop="remark_title" :disabled="allEditdata.titleChecked"></el-input>
                             <div class="el-form-item__error" v-if="titleState">Title cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.titleChecked">Don't change meta title</el-checkbox></p>
                         <p class="headSTitle MB5">Description:</p>
                         <el-form-item>
-                            <el-input type="textarea" v-model="allEditdata.remark_description" class="W600"  placeholder="0 of 320 characters used"  prop="remark_description" :disabled="!allEditdata.desChecked"></el-input>
+                            <el-input type="textarea" v-model="allEditdata.remark_description" class="W600"  placeholder="0 of 320 characters used"  prop="remark_description" :disabled="allEditdata.desChecked"></el-input>
                             <div class="el-form-item__error" v-if="desState">Description cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p>
                         <el-form-item class="W600" >   
-                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" class="FR" :disabled="allEditdata.btnState == 1">SUBMIT</el-button>
+                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" class="FR" :disabled="allEditdata.btnState == '2'">SUBMIT</el-button>
                         </el-form-item>
                     </el-form> 
                     <div class="showNow">
@@ -34,9 +34,9 @@
             </el-table-column>
         </el-table>
         <!-- 分页 -->
-        <div class="paging">
+        <!-- <div class="paging">
           <el-pagination :page-sizes="page.pagesizes" :page-size="page.pagesize" @size-change="handleSizeChange" @current-change="current_change" layout="total, sizes, prev, pager, next, jumper" :total="page.total"></el-pagination>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -63,9 +63,9 @@ import * as base from '../../assets/js/base'
     data() {
       return {
         page:{
-            total:0,//默认数据总数
-            pagesize:10,//每页的数据条数
-            pagesizes:[10, 20, 30, 40],//分组数量
+            // total:0,//默认数据总数
+            pagesize:9999,//每页的数据条数
+            // pagesizes:[10, 20, 30, 40],//分组数量
             currentPage:1,//默认开始页面
         },
         tableData: [
@@ -82,11 +82,9 @@ import * as base from '../../assets/js/base'
             title:'',
             domain:'',
             collection_list:null,
-            titleChecked:false,
-            desChecked:false,
-
-            btnState:1,
-
+            titleChecked:true,
+            desChecked:true,
+            btnState:'2',
             meta_title:'',
             showTitle:"Here's an Example of Product Title for All of the Products",
             showDescription:"Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.",
@@ -134,22 +132,28 @@ import * as base from '../../assets/js/base'
         'allEditdata.titleChecked': {
             handler: function() {
                 if(this.allEditdata.titleChecked){
-                    this.allEditdata.btnState = 2;
+                    this.allEditdata.btnState = '2';
+                        if(this.allEditdata.desChecked){
+                            this.allEditdata.btnState = '2';
+                        }else{
+                            this.allEditdata.btnState = '1';
+                        }
                 }else{
-                    if(!this.allEditdata.desChecked){
-                        this.allEditdata.btnState = 1;
-                    }
+                    this.allEditdata.btnState = '1';
                 }
             }
         },
         'allEditdata.desChecked': {
             handler: function() {
                 if(this.allEditdata.desChecked){
-                    this.allEditdata.btnState = 2;
+                    this.allEditdata.btnState = '2';
+                      if(this.allEditdata.desChecked){
+                            this.allEditdata.btnState = '2';
+                        }else{
+                            this.allEditdata.btnState = '1';
+                        }
                 }else{
-                    if(!this.allEditdata.titleChecked){
-                        this.allEditdata.btnState = 1;
-                    }
+                    this.allEditdata.btnState = '1';
                 }
             }
         }
@@ -185,8 +189,17 @@ import * as base from '../../assets/js/base'
             });
         },
         submitFun(formName){
-            this.allEditdata.remark_title == ''?this.titleState = true:this.titleState = false;
-            this.allEditdata.remark_description == ''?this.desState = true:this.desState = false;
+            this.allEditdata.remark_title == ''?this.titleState = false:this.titleState = true;
+            this.allEditdata.remark_description == ''?this.desState = false:this.desState = true;
+                 if(this.allEditdata.remark_title.trim().length == 0){
+                    this.titleState = true;
+                }else{
+                    this.titleState = false;
+                }if(this.allEditdata.remark_description.trim().length == 0){
+                    this.desState = true;
+                }else{
+                    this.desState = false;
+                }
             if(!this.titleState){
                 this.allEditdata.collection_list = JSON.stringify(this.allEditdata.collection_list); 
                 this.$axios.post('/api/v1/collection_motify/',this.allEditdata)
@@ -226,6 +239,8 @@ import * as base from '../../assets/js/base'
             this.allEditdata.domain = row.domain;
             this.allEditdata.remark_title = this.changString(row.remark_title);
             this.allEditdata.remark_description =  this.changString(row.remark_description);
+            this.allEditdata.titleChecked = true;
+            this.allEditdata.desChecked = true;
         },
         changString:function(title){
             if(title){
@@ -239,18 +254,18 @@ import * as base from '../../assets/js/base'
             }
             return title;
         },
-        current_change(val){
-            //点击数字时触发
-            this.page.currentPage = val;
-            this.init();
-            this.$refs.refTable.bodyWrapper.scrollTop = 0;
-        },
-        handleSizeChange(val){
-            //修改每页显示多少条时触发
-            this.page.pagesize = val;
-            this.init();
-            this.$refs.refTable.bodyWrapper.scrollTop = 0;
-        }
+        // current_change(val){
+        //     //点击数字时触发
+        //     this.page.currentPage = val;
+        //     this.init();
+        //     this.$refs.refTable.bodyWrapper.scrollTop = 0;
+        // },
+        // handleSizeChange(val){
+        //     //修改每页显示多少条时触发
+        //     this.page.pagesize = val;
+        //     this.init();
+        //     this.$refs.refTable.bodyWrapper.scrollTop = 0;
+        // }
     }
   }
 </script>
