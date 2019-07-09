@@ -99,14 +99,17 @@ export default {
         'allEditdata.remark_title': {
             handler: function() {
                 let title = this.allEditdata.remark_title;
+                if(this.allEditdata.remark_title>70){
+                    title = this.allEditdata.remark_title.substring(0,70)+'...';
+                }
                 this.allEditdata.showTitle = title;
             },
         },
         'allEditdata.remark_description': {
             handler: function() {
                 let _des = this.allEditdata.remark_description;
-                if(this.allEditdata.remark_description.length>120){
-                   _des = this.allEditdata.remark_description.substring(0,120)+'...';
+                if(this.allEditdata.remark_description.length>165){
+                   _des = this.allEditdata.remark_description.substring(0,165)+'...';
                 }
                 this.allEditdata.showDescription = _des;
             },
@@ -153,6 +156,7 @@ export default {
             this.tableData.map(e => {
                 this.allEditdata.product_list_array.push(e.id);
             });
+            console.log(this.allEditdata.product_list_array)
         },
         titleBtnFun(val){
             this.allEditdata.remark_title +=val + ' ';

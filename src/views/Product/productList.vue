@@ -1,40 +1,33 @@
 <template>
     <div class="shadowBox productList">
         <p class="headSTitle">Product List(Product Total : {{page.total}})</p>
-        
-        <el-table :data="tableData" style="width: 100%" height="691" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
+        <el-table :data="tableData" style="width: 100%" height="715" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
             <el-table-column label="ID" type="index" width="100" align="center"></el-table-column>
-            <el-table-column label="Img" width="100" align="center">
+            <el-table-column label="Image" width="250" align="center">
               <template slot-scope="scope">
-                  <el-popover
-                    placement="right"
-                    title=""
-                    trigger="hover">
-                    <img :src="'data:image/jpeg;base64,'+scope.row.thumbnail"  :style="'width: 500px;'" width="100"/>
-                    <img slot="reference" :src="'data:image/jpeg;base64,'+scope.row.thumbnail" :alt="'data:image/jpeg;base64,'+scope.row.thumbnail" style="height: 70px;width: 70px">
-                  </el-popover>
-              </template> 
+                   <img :src="'data:image/jpeg;base64,'+scope.row.thumbnail"  width="70" height="70"/>
+              </template>   
             </el-table-column>
-            <el-table-column label="Product Title" prop="title" width="490"></el-table-column>
-            <el-table-column label="SKU" prop="sku" width="200"></el-table-column>
-            <el-table-column label="Type" prop="type" width="200"></el-table-column>
-            <el-table-column label="Operation" type="expand" width="100">
+            <el-table-column label="Product Title" prop="title" align="center" width="550"></el-table-column>
+            <!-- <el-table-column label="SKU" prop="sku" width="200"></el-table-column>
+            <el-table-column label="Type" prop="type" width="200"></el-table-column> -->
+            <el-table-column type="expand">
                 <template slot-scope="props">
                     <el-form class="demo-form-inline special" label-width="0">
                         <p class="headSTitle MB5">Title:</p>
                         <el-form-item>
-                            <el-input type="textarea" v-model="allEditdata.remark_title" class="W600 titleTextarea"  placeholder="0 of 70 characters used"  prop="remark_title"></el-input>
+                            <el-input type="textarea" v-model="allEditdata.remark_title" class="W600 titleTextarea"  placeholder="0 of 70 characters used"  prop="remark_title" :disabled="allEditdata.titleChecked"></el-input>
                             <div class="el-form-item__error" v-if="titleState">Title cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.titleChecked">Don't change meta title</el-checkbox></p>
                         <p class="headSTitle MB5">Description:</p>
                         <el-form-item>
-                            <el-input type="textarea" v-model="allEditdata.remark_description" class="W600"  placeholder="0 of 320 characters used"  prop="remark_description"></el-input>
+                            <el-input type="textarea" v-model="allEditdata.remark_description" class="W600"  placeholder="0 of 320 characters used"  prop="remark_description" :disabled="allEditdata.desChecked"></el-input>
                             <div class="el-form-item__error" v-if="desState">Description cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p>
                         <el-form-item class="W600" >
-                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" class="FR" :disabled="allEditdata.btnState == 1">Submit</el-button>
+                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" class="FR" :disabled="allEditdata.btnState == '2'">Submit</el-button>
                         </el-form-item>
                     </el-form> 
                     <div class="showNow">
@@ -95,11 +88,12 @@ import * as base from '../../assets/js/base'
             title:'',
             domain:'',
             product_list:null,
-            titleChecked:false,
-            desChecked:false,
-            btnState:1,
+            titleChecked:true,
+            desChecked:true,
+            btnState:'2',
             showTitle:"Here's an Example of Product Title for All of the Products",
             showDescription:"Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.",
+            collection_list:'',
         },
         rules: {
           title: [
@@ -144,26 +138,31 @@ import * as base from '../../assets/js/base'
         'allEditdata.titleChecked': {
             handler: function() {
                 if(this.allEditdata.titleChecked){
-                    this.allEditdata.btnState = 2;
+                    this.allEditdata.btnState = '2';
+                        if(this.allEditdata.desChecked){
+                            this.allEditdata.btnState = '2';
+                        }else{
+                            this.allEditdata.btnState = '1';
+                        }
                 }else{
-                    if(!this.allEditdata.desChecked){
-                        this.allEditdata.btnState = 1;
-                    }
+                    this.allEditdata.btnState = '1';
                 }
             }
         },
         'allEditdata.desChecked': {
             handler: function() {
                 if(this.allEditdata.desChecked){
-                    this.allEditdata.btnState = 2;
+                    this.allEditdata.btnState = '2';
+                      if(this.allEditdata.desChecked){
+                            this.allEditdata.btnState = '2';
+                        }else{
+                            this.allEditdata.btnState = '1';
+                        }
                 }else{
-                    if(!this.allEditdata.titleChecked){
-                        this.allEditdata.btnState = 1;
-                    }
+                    this.allEditdata.btnState = '1';
                 }
             }
         }
-
     },
     mounted() {
        // this.init();
@@ -196,8 +195,17 @@ import * as base from '../../assets/js/base'
             });
         },
         submitFun(formName){
-            this.allEditdata.remark_title == ''?this.titleState = true:this.titleState = false;
-            this.allEditdata.remark_description == ''?this.desState = true:this.desState = false;
+            this.allEditdata.remark_title?this.titleState = false:this.titleState = true;
+            this.allEditdata.remark_description?this.desState = false:this.desState = true;
+                 if(this.allEditdata.remark_title.trim().length == 0){
+                    this.titleState = true;
+                }else{
+                    this.titleState = false;
+                }if(this.allEditdata.remark_description.trim().length == 0){
+                    this.desState = true;
+                }else{
+                    this.desState = false;
+                }
             if(!this.titleState && !this.desState){
                 this.allEditdata.product_list = JSON.stringify(this.allEditdata.product_list); 
                 this.$axios.post('/api/v1/product_motify/',this.allEditdata)
@@ -230,20 +238,19 @@ import * as base from '../../assets/js/base'
             } else {
                 that.expands = [];
             }
-
             this.allEditdata.id = row.id;
-            this.allEditdata.domain = row.domain;
             this.allEditdata.title = row.title;
             this.allEditdata.description = row.description;
             this.allEditdata.price = row.price;
             this.allEditdata.type = row.type;
             this.allEditdata.variants = row.variants;
+            this.allEditdata.domain = row.domain;
+            this.allEditdata.product_list = [];
             this.allEditdata.remark_title = this.changString(row.remark_title);
             this.allEditdata.remark_description = this.changString(row.remark_description);
-            this.allEditdata.product_list = [];
             this.allEditdata.product_list.push(row.id);
-            // this.allEditdata.titleChecked = row.titleChecked;
-            // this.allEditdata.desChecked = row.desChecked;
+            this.allEditdata.titleChecked = true;
+            this.allEditdata.desChecked = true;
         },
         changString:function(title){
             if(title){
@@ -260,8 +267,9 @@ import * as base from '../../assets/js/base'
                     title = title.replace(/%Product Price%/g,this.allEditdata.price);
                 }
                 if(title.indexOf('%Domain%')>=0){
-                    let _thisDom = this.allEditdata.domain.split("https://")[1].split(".")[0]+".com"
-                    title = title.replace(/%Domain%/g,_thisDom);
+                    // let _thisDom = this.allEditdata.domain.split("https://")[1].split(".")[0]+".com"
+                    // title = title.replace(/%Domain%/g,_thisDom);
+                    title = title.replace(/%Domain%/g,this.allEditdata.domain);
                 }
                 if(title.indexOf('%Product Description%')>=0){
                     title = title.replace(/%Product Description%/g,this.allEditdata.description);

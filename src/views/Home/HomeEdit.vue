@@ -55,7 +55,7 @@ export default {
     watch:{
     },
     mounted() {
-       // this.init();
+       this.init();
     },
     methods:{
         init(title) {
@@ -87,23 +87,22 @@ export default {
             });
         },
         submitFun(formName){
-            // this.$refs[formName].validate((valid) => {
-            //     if (valid) {
-            //         this.allEditdata.product_list = JSON.stringify(this.allEditdata.product_list_array); 
-            //         this.$axios.post('/api/v1/product_motify/',this.allEditdata)
-            //         .then(res => {
-            //             console.log(res)
-            //             if(res.data.code == 1){
-            //                 this.$message({message: res.data.msg,type: 'success',center: true});
-            //             }else{
-            //                 this.$message({message: res.data.msg,type: 'warning',center: true});
-            //             }
-            //         })
-            //         .catch(error => {
-            //             this.$message("Interface timeout!");
-            //         });
-            //     }
-            // });
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.allEditdata.product_list = JSON.stringify(this.allEditdata.product_list_array); 
+                    this.$axios.post('/api/v1/product_motify/',this.allEditdata)
+                    .then(res => {
+                        if(res.data.code == 1){
+                            this.$message({message: res.data.msg,type: 'success',center: true});
+                        }else{
+                            this.$message({message: res.data.msg,type: 'warning',center: true});
+                        }
+                    })
+                    .catch(error => {
+                        this.$message("Interface timeout!");
+                    });
+                }
+            });
         }
     }
 }

@@ -90,14 +90,18 @@ export default {
         'allEditdata.remark_title': {
             handler: function() {
                 let title = this.allEditdata.remark_title;
+                // this.allEditdata.showTitle = title;
+                if(this.allEditdata.remark_title.length>70){
+                   title = this.allEditdata.remark_title.substring(0,70)+'...';
+                }
                 this.allEditdata.showTitle = title;
             },
         },
         'allEditdata.remark_description': {
             handler: function() {
                 let _des = this.allEditdata.remark_description;
-                if(this.allEditdata.remark_description.length>120){
-                   _des = this.allEditdata.remark_description.substring(0,120)+'...';
+                if(this.allEditdata.remark_description.length>165){
+                   _des = this.allEditdata.remark_description.substring(0,165)+'...';
                 }
                 this.allEditdata.showDescription = _des;
             },

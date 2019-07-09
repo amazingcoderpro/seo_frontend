@@ -1,7 +1,7 @@
 html,
 body,
 #app {width: 100%;height: 100%;}
-.paging{text-align:right;padding-right:20px;padding-top:20px;}
+.paging{text-align:right;padding-top:13px;}
 .btnRight{float:right;margin-bottom: 10px;}
 .FL{float: left!important;}
 .FR{float: right!important;}
@@ -22,7 +22,7 @@ body,
 .W300{width:300px!important;margin-right:10px!important;}
 .W400{width:400px!important;margin-right:10px!important;}
 .W410{width:410px!important;margin-right:10px!important;}
-.W600{width:600px!important;margin-right:10px!important;}
+.W600{width:741px!important;margin-right:10px!important;}
 .W768{width:768px!important;margin-right:10px!important;}
 
 .MB0{margin-bottom:0!important;}
@@ -38,7 +38,7 @@ body,
 
 
 .colorGreen{color:#006633;}
-.shadowBox{width:calc(100% - 5px);position:relative;min-height:200px;-webkit-box-shadow:2px 5px 5px #ccc;box-shadow:5px 5px 5px #ccc;margin-bottom:10px;padding:20px;background:#F2F2F2;}
+.shadowBox{width:calc(100% - 5px);position:relative;min-height:200px;-webkit-box-shadow:2px 5px 5px #ccc;box-shadow:5px 5px 5px #ccc;margin-bottom:15px;padding:20px;background:#F2F2F2;}
 .head-nav{min-width:600px;color:#fff;}
 /* .headContent{width:1200px;} */
 .rightContainer{position: relative;width: 80%;}
@@ -71,13 +71,13 @@ textarea.titleTextarea{height:70px!important;}
 
 
 @media screen and (min-width: 1600px) {
-    .shadowBox{width:1816px;margin-left: 25px;}
+    .shadowBox{width:1823px;margin-left: 15px;}
     .rightContainer {width: 100%}
     .CollectionsEditAll,
-    .CollectionsList{width: 784px;float: left;height: 740px;}
+    .CollectionsList{width: 800px;float: left;height: 740px;}
     .CollectionsList{width: 967px;height: 740px;}
     .productEditAll,
-    .productList{width: 784px;float: left;height: 815px;}
+    .productList{width: 800px;float: left;height: 815px;}
     .productList{width: 967px;height: 815px;}
 }
 
