@@ -10,10 +10,9 @@
                 </template>
             </el-form-item>
             <el-form-item prop="remark_title">
-                <el-input type="textarea" v-model="allEditdata.remark_title" class="W600 titleTextarea" :maxLength="70" placeholder="0 of 70 characters used"></el-input>
+                <el-input type="textarea" v-model="allEditdata.remark_title" class="W610 titleTextarea" :maxLength="70" placeholder="0 of 70 characters used"></el-input>
             </el-form-item>
-            <p><el-checkbox v-model="allEditdata.titleChecked">Don't change meta title</el-checkbox></p>
-
+            <!-- <p><el-checkbox v-model="allEditdata.titleChecked">Don't change meta title</el-checkbox></p> -->
             <p class="headSTitle MB5">Description:</p>
             <el-form-item>
                 <template v-for="item in btnArray" >
@@ -21,10 +20,10 @@
                 </template>
             </el-form-item>
             <el-form-item prop="remark_description">
-                <el-input type="textarea" v-model="allEditdata.remark_description" class="W600" :maxLength="320"   placeholder="0 of 320 characters used"></el-input>
+                <el-input type="textarea" v-model="allEditdata.remark_description" class="W610" :maxLength="320"   placeholder="0 of 320 characters used"></el-input>
             </el-form-item>
-            <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p>
-            <el-form-item class="W600" >
+            <!-- <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p> -->
+            <el-form-item class="W610" >
                     <el-button type="primary" icon="view" @click="submitFun('formName')" style="float: right;" :disabled="subBtnState">Submit</el-button>
             </el-form-item>
         </el-form>  
@@ -42,10 +41,8 @@
         </div>
     </div>
 </template>
-
 <script>
 import * as base from '../../assets/js/base'
-
 export default {
     name: "productEditAll",
     data() {
@@ -76,10 +73,8 @@ export default {
                 titleChecked:false,
                 desChecked:false,
                 searchTitle:'',
-            
                 showTitle:"Here's an Example of Product Title for All of the Products",
                 showDescription:"Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.",
-                
             },
             tableData:[],
             subBtnState:false,
@@ -149,14 +144,12 @@ export default {
                 this.shadowState = false;
                 this.$message({message: error.message,type: 'warning',center: true});
             });      
-
         },
         getIdList(){
             this.allEditdata.product_list_array = [];
             this.tableData.map(e => {
                 this.allEditdata.product_list_array.push(e.id);
             });
-            console.log(this.allEditdata.product_list_array)
         },
         titleBtnFun(val){
             this.allEditdata.remark_title +=val + ' ';
@@ -187,18 +180,9 @@ export default {
         }
     }
 }
-
 </script>
 <style>
-
-.showNow p{
-margin:5px 0;
-}
-.showNow .title{
-    font-size: 16px;
-    font-weight: 600;
-    color: #0033FF;
-}
-
+.showNow p{margin:5px 0;}
+.showNow .title{font-size: 16px;font-weight: 600;color: #0033FF;}
 .productEditAll .el-button--primary{margin-bottom: 5px;margin-left: 0;margin-right: 5px;}
 </style>

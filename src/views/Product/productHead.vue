@@ -8,7 +8,7 @@
             <!-- <el-button type="primary" icon="view" @click="LoginOut" class="LoginOutBtn FR">Sign out</el-button> -->
             <el-form :model="searchData" class="demo-form-inline" label-width="0">
               <el-form-item>
-                <el-select v-model="searchData.pagVal" placeholder="Pinterest"  :class="'W400'">
+                <el-select v-model="searchData.pagVal" placeholder="Pinterest"  :class="'W400'" @change="pagValchange">
                   <el-option v-for="(item,title) in pagArray" :key="title" :label="item.title" :value="item.value"></el-option>
                 </el-select>
               </el-form-item>
@@ -16,7 +16,7 @@
                 <el-select v-model="searchData.productVal" filterable :class="'W400'" @change="productValFun">
                   <!-- <el-option :label="'Vague Search'" :value="-1"></el-option> -->
                   <el-option :label="'All Products'" :value="''"></el-option>
-                  <el-option v-for="(item,title) in productArray" :key="title" :label="item.title" :value="item.title"></el-option>
+                  <el-option v-for="(item,title) in productArray" :key="title" :label="item.meta_title" :value="item.meta_title"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item v-if="searchTitleState">
@@ -30,9 +30,7 @@
     </header>
 </template>
 <script>
-
 import * as base from '../../assets/js/base'
-
 export default {
   name: "productHead",
   data() {
@@ -44,6 +42,7 @@ export default {
         {title:'Products Page',value:'/ProductShow'},
       ],
       productArray:[],
+      CollectionArray:[],
       searchData:{
         pagVal:'/ProductShow',
         productVal:'',
@@ -71,15 +70,27 @@ export default {
   components: {
   },
   mounted() {
-   // this.init();
+    this.init();
   },
   methods: {
     init(){
         this.productArray = [];
-        let url = `/api/v1/product/`;
-        this.$axios(url).then(res => {
+        this.CollectionArray = [];
+        // let url = `/api/v1/product/`;
+        // this.$axios(url).then(res => {
+        //     if(res.data.code == 1){
+        //         this.productArray = res.data.data;
+        //     }else{
+        //         this.$message({message: "code Abnormal!",type: 'warning',center: true});
+        //     }
+        // })
+        // .catch(error => {
+        //     this.$message({message: error.message,type: 'warning',center: true});
+        // }); 
+        let urlStr = `/api/v1/collection/`;
+        this.$axios(urlStr).then(res => {
             if(res.data.code == 1){
-                this.productArray = res.data.data;
+                this.CollectionArray = res.data.data;
             }else{
                 this.$message({message: "code Abnormal!",type: 'warning',center: true});
             }
@@ -87,8 +98,10 @@ export default {
         .catch(error => {
             this.$message({message: error.message,type: 'warning',center: true});
         }); 
+
     },
     searchFun(){
+      window.localStorage.setItem("CollectionVal", this.searchData.productVal);
       if(location.href.indexOf(this.searchData.pagVal)<0){
         this.$router.push(this.searchData.pagVal);
       }
@@ -107,6 +120,14 @@ export default {
         }else{
             this.searchTitleState = false;
         }
+    },
+    pagValchange(){
+      if(this.searchData.pagVal == '/Collections'){
+         this.productArray = this.CollectionArray;
+         console.log( this.productArray)
+      }else{
+         this.productArray = [];
+      }
     },
     LoginOut(){
        base.LoginOut();

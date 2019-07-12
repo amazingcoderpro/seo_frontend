@@ -80,6 +80,13 @@ export default {
         this.$axios(url).then(res => {
             if(res.data.code == 1){
                 this.productArray = res.data.data;
+                 let CollectionVal = window.localStorage.CollectionVal;
+                  if(CollectionVal && CollectionVal != -1 ){
+                      this.searchData.productVal = CollectionVal;
+                      this.searchFun();
+                  }else{
+                      this.searchData.productVal = '';
+                  }
             }else{
                 this.$message({message: "code Abnormal!",type: 'warning',center: true});
             }
@@ -114,3 +121,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+/* .shadowBox .headContent{
+    width: 100%;
+    min-height:350px;-webkit-box-shadow:2px 5px 5px #ccc;box-shadow:5px 5px 5px #ccc;margin-bottom:15px;padding:20px;background:#F2F2F2;
+} */
+</style>
+

@@ -1,26 +1,34 @@
 <template>
     <div class="shadowBox productList">
         <p class="headSTitle">Product List(Product Total : {{page.total}})</p>
-        <el-table :data="tableData" style="width: 100%" height="715" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
-            <el-table-column label="ID" type="index" width="100" align="center"></el-table-column>
+        <el-table :data="tableData" style="width: 100%" height="730" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
+            <el-table-column label="ID" type="index" width="110" align="center"></el-table-column>
             <el-table-column label="Image" width="250" align="center">
               <template slot-scope="scope">
                    <img :src="'data:image/jpeg;base64,'+scope.row.thumbnail"  width="70" height="70"/>
               </template>   
             </el-table-column>
-            <el-table-column label="Product Title" prop="title" align="center" width="550"></el-table-column>
-            <!-- <el-table-column label="SKU" prop="sku" width="200"></el-table-column>
-            <el-table-column label="Type" prop="type" width="200"></el-table-column> -->
+            <el-table-column label="Product Title" prop="title" align="left" width="420"></el-table-column>
             <el-table-column type="expand">
                 <template slot-scope="props">
                     <el-form class="demo-form-inline special" label-width="0">
                         <p class="headSTitle MB5">Title:</p>
+                        <el-form-item>
+                            <template v-for="item in btnArray" >
+                                <el-button :key="item.index" type="primary" icon="view" :disabled="!item.state" @click="titleBtnFun(item.value)">{{item.title}}</el-button>
+                            </template>
+                        </el-form-item>
                         <el-form-item>
                             <el-input type="textarea" v-model="allEditdata.remark_title" class="W600 titleTextarea"  placeholder="0 of 70 characters used"  prop="remark_title" :disabled="allEditdata.titleChecked"></el-input>
                             <div class="el-form-item__error" v-if="titleState">Title cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.titleChecked">Don't change meta title</el-checkbox></p>
                         <p class="headSTitle MB5">Description:</p>
+                        <el-form-item>
+                            <template v-for="item in btnArray" >
+                                <el-button :key="item.index" type="primary" icon="view" :disabled="!item.state" @click="desBtnFun(item.value)">{{item.title}}</el-button>
+                            </template>
+                        </el-form-item>
                         <el-form-item>
                             <el-input type="textarea" v-model="allEditdata.remark_description" class="W600"  placeholder="0 of 320 characters used"  prop="remark_description" :disabled="allEditdata.desChecked"></el-input>
                             <div class="el-form-item__error" v-if="desState">Description cannot be empty</div>
@@ -45,25 +53,13 @@
         </div>
     </div>
 </template>
-
 <style>
-  .demo-table-expand {
-    font-size: 0;
-  }
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
-  }
+  .demo-table-expand {font-size: 0;}
+  .demo-table-expand label {width: 90px;color: #99a9bf;}
+  .demo-table-expand .el-form-item {margin-right: 0;margin-bottom: 0;width: 50%;}
 </style>
-
 <script>
 import * as base from '../../assets/js/base'
-
   export default {
     name: "productList",
     data() {
@@ -95,6 +91,14 @@ import * as base from '../../assets/js/base'
             showDescription:"Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.",
             collection_list:'',
         },
+        btnArray:[
+                {title:'Product Type',value:'%Product Type%',state:true},
+                {title:'Product Title',value:'%Product Title%',state:true},
+                {title:'Variants',value:'%Variants%',state:true},
+                {title:'Product Description',value:'%Product Description%',state:true},
+                {title:'Product Price',value:'%Product Price%',state:true},
+                {title:'Domain',value:'%Domain%',state:true}
+            ],
         rules: {
           title: [
             { required: true, message: "User title cannot be empty", trigger: "change" },
@@ -194,6 +198,12 @@ import * as base from '../../assets/js/base'
                 });
             });
         },
+        titleBtnFun(val){
+            this.allEditdata.remark_title +=val + ' ';
+        },
+        desBtnFun(val){
+            this.allEditdata.remark_description +=val + ' ';
+        },
         submitFun(formName){
             this.allEditdata.remark_title?this.titleState = false:this.titleState = true;
             this.allEditdata.remark_description?this.desState = false:this.desState = true;
@@ -292,3 +302,7 @@ import * as base from '../../assets/js/base'
     }
   }
 </script>
+<style>
+.productList .el-table th>.cell {text-align: center;}
+.productList .el-table__expanded-cell[class*=cell]{padding:20px 30px;}
+</style>

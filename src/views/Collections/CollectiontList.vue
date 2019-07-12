@@ -1,27 +1,43 @@
 <template>
-    <div class="shadowBox CollectionsList">
+    <div class="shadowBox_s CollectionsList">
         <p class="headSTitle">Collection List(Collection Total : {{page.total}})</p>
-        
         <el-table :data="tableData" style="width: 100%" height="675" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
-            <el-table-column label="ID" type="index" width="120" align="center"></el-table-column>
-            <el-table-column label="Collection Name" prop="meta_title" align="left" width="710"></el-table-column>
-            <el-table-column type="expand" label="Operation" width="130">
+            <div class="selection_left">
+                
+                 <el-table-column type="selection" label="批量操作" align="center"  width="100" border>
+                 </el-table-column>
+                 <i class="iconfont icon-xiangxiajiantou"></i>
+
+
+            </div>
+            <el-table-column label="Collection Name" prop="meta_title" align="left" width="600"></el-table-column>
+            <el-table-column type="expand" label="Operation" width="140">
                 <template slot-scope="props">
                     <el-form class="demo-form-inline special" label-width="0">
                         <p class="headSTitle MB5">Title:</p>
+                         <el-form-item>
+                            <template v-for="item in btnArray" >
+                                <el-button :key="item.index" type="primary" icon="view" :disabled="!item.state" @click="titleBtnFun(item.value)">{{item.title}}</el-button>
+                            </template>
+                        </el-form-item>
                         <el-form-item>
-                            <el-input type="textarea" v-model="allEditdata.remark_title" class="W600 titleTextarea"  placeholder="0 of 70 characters used"  prop="remark_title" :disabled="allEditdata.titleChecked"></el-input>
+                            <el-input type="textarea" v-model="allEditdata.remark_title" class="W620 titleTextarea"  placeholder="0 of 70 characters used"  prop="remark_title" :disabled="allEditdata.titleChecked"></el-input>
                             <div class="el-form-item__error" v-if="titleState">Title cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.titleChecked">Don't change meta title</el-checkbox></p>
                         <p class="headSTitle MB5">Description:</p>
                         <el-form-item>
-                            <el-input type="textarea" v-model="allEditdata.remark_description" class="W600"  placeholder="0 of 320 characters used"  prop="remark_description" :disabled="allEditdata.desChecked"></el-input>
+                            <template v-for="item in btnArray" >
+                                <el-button :key="item.index" type="primary" icon="view" :disabled="!item.state" @click="desBtnFun(item.value)">{{item.title}}</el-button>
+                            </template>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-input type="textarea" v-model="allEditdata.remark_description" class="W620"  placeholder="0 of 320 characters used"  prop="remark_description" :disabled="allEditdata.desChecked"></el-input>
                             <div class="el-form-item__error" v-if="desState">Description cannot be empty</div>
                         </el-form-item>
                         <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p>
-                        <el-form-item class="W600" >   
-                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" class="FR" :disabled="allEditdata.btnState == '2'">SUBMIT</el-button>
+                        <el-form-item class="W620" >   
+                                <el-button type="primary" icon="view" @click="submitFun('productFrom')" class="FR" :disabled="allEditdata.btnState == '2'">Submit</el-button>
                         </el-form-item>
                     </el-form> 
                     <div class="showNow">
@@ -39,25 +55,13 @@
         </div> -->
     </div>
 </template>
-
 <style>
-  .demo-table-expand {
-    font-size: 0;
-  }
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
-  }
+  .demo-table-expand {font-size: 0;}
+  .demo-table-expand label {width: 90px;color: #99a9bf;}
+  .demo-table-expand .el-form-item {margin-right: 0;margin-bottom: 0;width: 50%;}
 </style>
-
 <script>
 import * as base from '../../assets/js/base'
-
   export default {
     name: "CollectionsList",
     data() {
@@ -68,6 +72,10 @@ import * as base from '../../assets/js/base'
             // pagesizes:[10, 20, 30, 40],//分组数量
             currentPage:1,//默认开始页面
         },
+        btnArray:[
+            {title:'Product Type',value:'%Product Type%',state:true},
+            {title:'Domain',value:'%Domain%',state:true}
+        ],
         tableData: [
             // {Title: '11111111',desVal:'1111111',SKU: '11111111',Type: '11111111',titleChecked:false,desChecked:true}
         ],
@@ -188,6 +196,12 @@ import * as base from '../../assets/js/base'
                 });
             });
         },
+        titleBtnFun(val){
+              this.allEditdata.remark_title +=val + ' ';
+        },
+        desBtnFun(val){
+            this.allEditdata.remark_description +=val + ' ';
+        },
         submitFun(formName){
             this.allEditdata.remark_title == ''?this.titleState = false:this.titleState = true;
             this.allEditdata.remark_description == ''?this.desState = false:this.desState = true;
@@ -269,3 +283,9 @@ import * as base from '../../assets/js/base'
     }
   }
 </script>
+
+<style>
+.CollectionsEditAll{min-height: 500px;}
+.CollectionsList .selection_left{width:50px;height:35px;border: 1px solid red;}
+.CollectionsList .el-table_1_column_1 .is-leaf{border: 1px solid #ccc;width: 50px;height: 30px;}
+</style>
