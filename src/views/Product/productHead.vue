@@ -5,7 +5,6 @@
               <span>SEO META EDIT</span>
             </div>
             <p class="headSTitle">Choose Conditions</p>
-            <!-- <el-button type="primary" icon="view" @click="LoginOut" class="LoginOutBtn FR">Sign out</el-button> -->
             <el-form :model="searchData" class="demo-form-inline" label-width="0">
               <el-form-item>
                 <el-select v-model="searchData.pagVal" placeholder="Pinterest"  :class="'W400'" @change="pagValchange">
@@ -14,9 +13,9 @@
               </el-form-item>
               <el-form-item>
                 <el-select v-model="searchData.productVal" filterable :class="'W400'" @change="productValFun">
-                  <!-- <el-option :label="'Vague Search'" :value="-1"></el-option> -->
                   <el-option :label="'All Products'" :value="''"></el-option>
-                  <el-option v-for="(item,title) in productArray" :key="title" :label="item.meta_title" :value="item.meta_title"></el-option>
+                  <!-- <el-option v-for="(item,title) in productArray" :key="title" :label="item.meta_title" :value="item.meta_title"></el-option> -->
+                   <el-option v-for="(item,title) in productArray" :key="title" :label="item.title" :value="item.title"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item v-if="searchTitleState">

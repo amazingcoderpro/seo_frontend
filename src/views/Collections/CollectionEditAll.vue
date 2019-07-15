@@ -12,7 +12,6 @@
             <el-form-item prop="remark_title">
                 <el-input type="textarea" v-model="allEditdata.remark_title" class="W610 titleTextarea" :maxLength="70" placeholder="0 of 70 characters used"></el-input>
             </el-form-item>
-            <!-- <p><el-checkbox v-model="allEditdata.titleChecked">Don't change meta title</el-checkbox></p> -->
             <p class="headSTitle MB5">Description:</p>
             <el-form-item>
                 <template v-for="item in btnArray" >
@@ -22,7 +21,6 @@
             <el-form-item prop="remark_description">
                 <el-input type="textarea" v-model="allEditdata.remark_description" class="W610" :maxLength="320"   placeholder="0 of 320 characters used"></el-input>
             </el-form-item>
-            <!-- <p><el-checkbox v-model="allEditdata.desChecked">Don't change meta description</el-checkbox></p> -->
             <el-form-item class="W610" >
                     <el-button type="primary" icon="view" @click="submitFun('formName')" style="float: right;" :disabled="subBtnState">Submit</el-button>
             </el-form-item>

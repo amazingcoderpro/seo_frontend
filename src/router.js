@@ -62,20 +62,48 @@ const router = new Router({
 })
 
 
+// router.beforeEach((to,from,next) =>{
+//   const isLogin = localStorage.eleToken ? true : false;
+//   if(to.path == "/login" || to.path == "/shopfy_regist" || to.path == "/aut_state" ){
+//     next()
+//   }else{
+//     //isLogin ? next() : next('/login');
+//     if(isLogin) {
+//       next()
+//        // next('/Home')
+//       }else{
+//         next('/login')
+//       }
+//   }
+// });
 router.beforeEach((to,from,next) =>{
   const isLogin = localStorage.eleToken ? true : false;
+  let user = localStorage.user;
+  let shopString = getQueryString("shop");
+  if(user){
+    user = JSON.parse(user);
+  }
   if(to.path == "/login" || to.path == "/shopfy_regist" || to.path == "/aut_state" ){
     next()
   }else{
-    //isLogin ? next() : next('/login');
     if(isLogin) {
-      next()
-       // next('/Home')
+        if(user && shopString && user.username != shopString){  
+          localStorage.removeItem('eleToken')
+          localStorage.removeItem("user");
+          router.push('/login')
+          // next('/login')
+        }else{
+          next()
+        }
       }else{
         next('/login')
       }
-  }
+   }
 });
-
+export function getQueryString(key){
+  var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+  var result = window.location.search.substr(1).match(reg);
+  return result ? decodeURIComponent(result[2]) : null;
+}
 
 export default router;
