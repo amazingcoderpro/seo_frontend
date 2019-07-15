@@ -118,7 +118,14 @@ import * as base from '../../assets/js/base'
             handler: function() {
                 let title = this.allEditdata.remark_title;
                 if(title){
-                    title = this.changString(title);
+                   title = this.changString(title);
+                  if(title.length>70){
+                        title = title.substring(0,70);
+                        let _array = title.split(' ');
+                        let _newArr = _array.splice(0,_array.length-3);
+                        let _title = _newArr.join(' ');
+                        title = _title+"..."
+                   }
                 }else{
                     title = "Here's an Example of Product Title for All of the Products";
                 }
@@ -130,13 +137,18 @@ import * as base from '../../assets/js/base'
                 let title = this.allEditdata.remark_description;
                 if(title){
                     title = this.changString(title);
-                    if(title.length>130){
-                        title = title.substring(0,130)+'...';
-                    }
+                    if(title.length>165){
+                        title = title.substring(0,165);
+                        let _array = title.split(' ');
+                         let _newArr = _array.splice(0,_array.length-3);
+                        let _title = _newArr.join(' ');
+                        title = _title+"..."
+                   }
                 }else{
                     title = "Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.";
                 }
                 this.allEditdata.showDescription = title;
+                this.allEditdata = this.allEditdata;
             },
         },
         'allEditdata.titleChecked': {

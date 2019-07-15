@@ -11,12 +11,6 @@
                   <el-option v-for="(item,title) in pagArray" :key="title" :label="item.title" :value="item.value"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item>
-                <el-select v-model="searchData.productVal" filterable :class="'W400'" @change="productValFun">
-                  <el-option :label="'All Collections'" :value="''"></el-option>
-                  <el-option v-for="(item,title) in productArray" :key="title" :label="item.meta_title" :value="item.meta_title"></el-option>
-                </el-select>
-              </el-form-item>
               <el-form-item v-if="searchTitleState">
                 <el-input v-model="searchData.searchTitle" placeholder="Title" :class="'W400'"></el-input>
               </el-form-item>
@@ -30,7 +24,7 @@
 <script>
 import * as base from '../../assets/js/base'
 export default {
-  name: "productHead",
+  name: "CategoreHead",
   data() {
     return {
       pagArray:[
@@ -40,7 +34,7 @@ export default {
         {title:'Products Page',value:'/ProductShow'},
       ],
       productArray:[],
-      CollectionArray:[],
+      // CollectionArray:[],
       searchData:{
         pagVal:'/Categore',
         productVal:'',
@@ -59,11 +53,6 @@ export default {
     }
   },
   watch:{
-      // 'searchData.pagVal': {
-      //     handler: function() {
-      //       this.$router.push(this.searchData.pagVal);
-      //     },
-      // }
   },
   components: {
   },
@@ -74,17 +63,6 @@ export default {
     init(){
         this.productArray = [];
         this.CollectionArray = [];
-        // let url = `/api/v1/product/`;
-        // this.$axios(url).then(res => {
-        //     if(res.data.code == 1){
-        //         this.productArray = res.data.data;
-        //     }else{
-        //         this.$message({message: "code Abnormal!",type: 'warning',center: true});
-        //     }
-        // })
-        // .catch(error => {
-        //     this.$message({message: error.message,type: 'warning',center: true});
-        // }); 
         let urlStr = `/api/v1/collection/`;
         this.$axios(urlStr).then(res => {
             if(res.data.code == 1){

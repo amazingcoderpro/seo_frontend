@@ -13,9 +13,9 @@
               </el-form-item>
               <el-form-item>
                 <el-select v-model="searchData.productVal" filterable :class="'W400'" @change="productValFun">
-                  <el-option :label="'Vague Search'" :value="-1"></el-option>
-                  <el-option :label="'All Collections'" :value="''"></el-option>
-                  <el-option v-for="(item,title) in productArray" :key="title" :label="item.meta_title" :value="item.meta_title"></el-option>
+                  <el-option :label="'All Collections'" :value="''" v-if="searchData.pagVal == '/Collections'"></el-option>
+                  <el-option :label="'All Products'" :value="''" v-if="searchData.pagVal == '/ProductShow'"></el-option>
+                  <el-option v-for="(item,meta_title) in productArray" :key="meta_title" :label="item.meta_title" :value="item.meta_title"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item v-if="searchTitleState">
@@ -31,7 +31,7 @@
 <script>
 import * as base from '../../assets/js/base'
 export default {
-  name: "headContent",
+  name: "CollectionsHead",
   data() {
     return {
       pagArray:[
@@ -108,7 +108,8 @@ export default {
     pagValchange(){
       if(this.searchData.pagVal == '/Collections'){
          this.productArray = this.CollectionArray;
-      }else{
+      }
+      else{
          this.productArray = [];
       }
     },

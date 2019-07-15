@@ -13,9 +13,9 @@
               </el-form-item>
               <el-form-item>
                 <el-select v-model="searchData.productVal" filterable :class="'W400'" @change="productValFun">
-                  <el-option :label="'All Products'" :value="''"></el-option>
-                  <!-- <el-option v-for="(item,title) in productArray" :key="title" :label="item.meta_title" :value="item.meta_title"></el-option> -->
-                   <el-option v-for="(item,title) in productArray" :key="title" :label="item.title" :value="item.title"></el-option>
+                  <el-option :label="'All Products'" :value="''" v-if="searchData.pagVal == '/ProductShow'"></el-option>
+                  <el-option :label="'All Collections'" :value="''" v-if="searchData.pagVal == '/Collections'"></el-option>
+                  <el-option v-for="(item,title) in productArray" :key="title" :label="item.meta_title" :value="item.meta_title"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item v-if="searchTitleState">
@@ -90,6 +90,7 @@ export default {
         this.$axios(urlStr).then(res => {
             if(res.data.code == 1){
                 this.CollectionArray = res.data.data;
+                
             }else{
                 this.$message({message: "code Abnormal!",type: 'warning',center: true});
             }

@@ -10,7 +10,7 @@
                 </template>
             </el-form-item>
             <el-form-item prop="remark_title">
-                <el-input type="textarea" v-model="allEditdata.remark_title" class="W610 titleTextarea" :maxLength="70" placeholder="0 of 70 characters used"></el-input>
+                <el-input type="textarea" v-model="allEditdata.remark_title" class="W610 titleTextarea" placeholder="0 of 70 characters used"></el-input>
             </el-form-item>
             <p class="headSTitle MB5">Description:</p>
             <el-form-item>
@@ -19,7 +19,7 @@
                 </template>
             </el-form-item>
             <el-form-item prop="remark_description">
-                <el-input type="textarea" v-model="allEditdata.remark_description" class="W610" :maxLength="320"   placeholder="0 of 320 characters used"></el-input>
+                <el-input type="textarea" v-model="allEditdata.remark_description" class="W610"  placeholder="0 of 320 characters used"></el-input>
             </el-form-item>
             <el-form-item class="W610" >
                     <el-button type="primary" icon="view" @click="submitFun('formName')" style="float: right;" :disabled="subBtnState">Submit</el-button>
@@ -89,6 +89,12 @@ export default {
                 this.allEditdata.showTitle = title;
             },
         },
+        //  'allEditdata.remark_title': {
+        //     handler: function() {
+        //         let title = this.allEditdata.remark_title;
+        //         this.allEditdata.showTitle = title;
+        //     },
+        // },
         'allEditdata.remark_description': {
             handler: function() {
                 let _des = this.allEditdata.remark_description;

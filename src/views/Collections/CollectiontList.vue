@@ -2,14 +2,11 @@
     <div class="shadowBox_s CollectionsList">
         <p class="headSTitle">Collection List(Collection Total : {{page.total}})</p>
         <el-table :data="tableData" style="width: 100%" height="675" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
-            <div class="selection_left">
-                
-                 <el-table-column type="selection" label="批量操作" align="center"  width="100" border>
+          
+                 <el-table-column type="selection" label="批量操作" align="center"  width="100">
                  </el-table-column>
-                 <i class="iconfont icon-xiangxiajiantou"></i>
+   
 
-
-            </div>
             <el-table-column label="Collection Name" prop="meta_title" align="left" width="600"></el-table-column>
             <el-table-column type="expand" label="Operation" width="140">
                 <template slot-scope="props">
@@ -66,6 +63,7 @@ import * as base from '../../assets/js/base'
     name: "CollectionsList",
     data() {
       return {
+          checked1:true,
         page:{
             // total:0,//默认数据总数
             pagesize:9999,//每页的数据条数
@@ -112,11 +110,29 @@ import * as base from '../../assets/js/base'
       }
     },
     watch:{
+        // 'allEditdata.remark_title': {
+        //     handler: function() {
+        //         let title = this.allEditdata.remark_title;
+        //         if(title){
+        //             title = this.changString(title);
+        //         }else{
+        //             title = "Here's an Example of Product Title for All of the Products";
+        //         }
+        //         this.allEditdata.showTitle = title;
+        //     },
+        // },
         'allEditdata.remark_title': {
             handler: function() {
                 let title = this.allEditdata.remark_title;
                 if(title){
                     title = this.changString(title);
+                    if(title.length>70){
+                        title = title.substring(0,70);
+                        let _array = title.split(' ');
+                        let _newArr = _array.splice(0,_array.length-3);
+                        let _title = _newArr.join(' ');
+                        title = _title+"..."
+                   }
                 }else{
                     title = "Here's an Example of Product Title for All of the Products";
                 }
@@ -128,13 +144,18 @@ import * as base from '../../assets/js/base'
                 let title = this.allEditdata.remark_description;
                 if(title){
                     title = this.changString(title);
-                    if(title.length>130){
-                        title = title.substring(0,130)+'...';
-                    }
+                    if(title.length>165){
+                        title = title.substring(0,165);
+                        let _array = title.split(' ');
+                         let _newArr = _array.splice(0,_array.length-3);
+                        let _title = _newArr.join(' ');
+                        title = _title+"..."
+                   }
                 }else{
                     title = "Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.";
                 }
                 this.allEditdata.showDescription = title;
+                this.allEditdata = this.allEditdata;
             },
         },
         'allEditdata.titleChecked': {
