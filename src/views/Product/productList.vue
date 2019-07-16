@@ -1,15 +1,15 @@
 <template>
     <div class="shadowBox productList">
         <p class="headSTitle">Product List(Product Total : {{page.total}})</p>
-        <el-table :data="tableData" style="width: 100%" height="730" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
+        <el-table :data="tableData" style="width: 100%" height="760" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
             <el-table-column label="ID" type="index" width="110" align="center"></el-table-column>
-            <el-table-column label="Image" width="250" align="center">
+            <el-table-column label="Image" width="170" align="center">
               <template slot-scope="scope">
                    <img :src="'data:image/jpeg;base64,'+scope.row.thumbnail"  width="70" height="70"/>
               </template>   
             </el-table-column>
-            <el-table-column label="Product Title" prop="title" align="left" width="420"></el-table-column>
-            <el-table-column type="expand">
+            <el-table-column label="Product Title" prop="title" align="left" width="460"></el-table-column>
+            <el-table-column type="expand" width="80">
                 <template slot-scope="props">
                     <el-form class="demo-form-inline special" label-width="0">
                         <p class="headSTitle MB5">Title:</p>

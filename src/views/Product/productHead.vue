@@ -1,5 +1,5 @@
 <template>
-    <header class="shadowBox head-nav">
+    <header class="shadowBox head-nav" style="position:fixed!important;z-index:999">
         <div class="headContent">
             <div class="headTitle MB30">
               <span>SEO META EDIT</span>
@@ -21,7 +21,7 @@
               <el-form-item v-if="searchTitleState">
                 <el-input v-model="searchData.searchTitle" placeholder="Title" :class="'W400'"></el-input>
               </el-form-item>
-              <el-form-item class="W768">
+              <el-form-item class="W980">
                 <el-button type="primary" icon="view" @click="searchFun()" class="FR">Load Products</el-button>
               </el-form-item>
             </el-form>
@@ -36,7 +36,6 @@ export default {
     return {
       pagArray:[
         {title:'Page Categore',value:'/Categore'},
-        // {title:'Home Page',value:'/Home'},
         {title:'Collections Page',value:'/Collections'},
         {title:'Products Page',value:'/ProductShow'},
       ],
@@ -75,22 +74,10 @@ export default {
     init(){
         this.productArray = [];
         this.CollectionArray = [];
-        // let url = `/api/v1/product/`;
-        // this.$axios(url).then(res => {
-        //     if(res.data.code == 1){
-        //         this.productArray = res.data.data;
-        //     }else{
-        //         this.$message({message: "code Abnormal!",type: 'warning',center: true});
-        //     }
-        // })
-        // .catch(error => {
-        //     this.$message({message: error.message,type: 'warning',center: true});
-        // }); 
         let urlStr = `/api/v1/collection/`;
         this.$axios(urlStr).then(res => {
             if(res.data.code == 1){
                 this.CollectionArray = res.data.data;
-                
             }else{
                 this.$message({message: "code Abnormal!",type: 'warning',center: true});
             }
@@ -124,7 +111,6 @@ export default {
     pagValchange(){
       if(this.searchData.pagVal == '/Collections'){
          this.productArray = this.CollectionArray;
-         console.log( this.productArray)
       }else{
          this.productArray = [];
       }

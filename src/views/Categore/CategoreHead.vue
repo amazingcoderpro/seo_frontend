@@ -1,6 +1,6 @@
 <template>
     <header class="shadowBox head-nav">
-        <div class="headContent">
+        <div class="headContent headCate">
             <div class="headTitle MB30">
               <span>SEO META EDIT</span>
             </div>
@@ -111,3 +111,8 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.headCate .el-form-item{display: block;}
+</style>
+

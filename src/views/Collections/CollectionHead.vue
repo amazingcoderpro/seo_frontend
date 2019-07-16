@@ -1,5 +1,5 @@
 <template>
-    <header class="shadowBox head-nav">
+    <header class="shadowBox head-nav" style="position:fixed!important;z-index:999;">
         <div class="headContent">
             <div class="headTitle MB30">
               <span>SEO META EDIT</span>
@@ -21,7 +21,7 @@
               <el-form-item v-if="searchTitleState">
                 <el-input v-model="searchData.searchTitle" placeholder="Title" :class="'W400'"></el-input>
               </el-form-item>
-              <el-form-item class="W768">
+              <el-form-item class="W980">
                 <el-button type="primary" icon="view" @click="searchFun()" class="FR">Load Products</el-button>
               </el-form-item>
             </el-form>
@@ -119,3 +119,12 @@ export default {
   }
 };
 </script>
+
+
+<style>
+.el-form-item{display: inline-block;}
+/* .headContent{position: fixed;} */
+</style>
+
+
+

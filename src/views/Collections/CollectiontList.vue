@@ -2,11 +2,7 @@
     <div class="shadowBox_s CollectionsList">
         <p class="headSTitle">Collection List(Collection Total : {{page.total}})</p>
         <el-table :data="tableData" style="width: 100%" height="675" @expand-change="expandSelect" @cell-click="clickTable" ref="refTable">
-          
-                 <el-table-column type="selection" label="批量操作" align="center"  width="100">
-                 </el-table-column>
-   
-
+            <el-table-column type="selection" label="批量操作"  align="center" width="100"></el-table-column>
             <el-table-column label="Collection Name" prop="meta_title" align="left" width="600"></el-table-column>
             <el-table-column type="expand" label="Operation" width="140">
                 <template slot-scope="props">
@@ -46,6 +42,7 @@
                 </template>
             </el-table-column>
         </el-table>
+
         <!-- 分页 -->
         <!-- <div class="paging">
           <el-pagination :page-sizes="page.pagesizes" :page-size="page.pagesize" @size-change="handleSizeChange" @current-change="current_change" layout="total, sizes, prev, pager, next, jumper" :total="page.total"></el-pagination>
@@ -257,7 +254,6 @@ import * as base from '../../assets/js/base'
             }
         },
         expandSelect:function (row, expandedRows) {
-
             var that = this
             if (expandedRows.length>1) {
                 that.expands = []
@@ -307,6 +303,8 @@ import * as base from '../../assets/js/base'
 
 <style>
 .CollectionsEditAll{min-height: 500px;}
-.CollectionsList .selection_left{width:50px;height:35px;border: 1px solid red;}
-.CollectionsList .el-table_1_column_1 .is-leaf{border: 1px solid #ccc;width: 50px;height: 30px;}
+
+
+.Collection_Name{padding-left: 50px;}
+.Operation_name{padding-left: 150px;}
 </style>
