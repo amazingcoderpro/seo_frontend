@@ -41,7 +41,7 @@
                     <div class="showNow">
                         <p class="headSTitle">Search engine listing preview</p>
                         <p class="title">{{allEditdata.showTitle}}</p>
-                        <p class="colorGreen">charrcter.myshopify.com/products/current_product_handle</p>
+                        <p class="colorGreen">{{user.username}}/products/current_product_handle</p>
                         <p class="littleMsg description">{{allEditdata.showDescription}}</p>
                     </div>
                 </template>
@@ -64,6 +64,7 @@ import * as base from '../../assets/js/base'
     name: "productList",
     data() {
       return {
+        user:{},
         page:{
             total:0,//默认数据总数
             pagesize:10,//每页的数据条数
@@ -182,6 +183,9 @@ import * as base from '../../assets/js/base'
     },
     mounted() {
        // this.init();
+        if(localStorage.user){
+            this.user = JSON.parse(localStorage.user);
+        }
     },
     methods:{
         //  echarts自适应

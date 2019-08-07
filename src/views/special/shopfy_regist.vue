@@ -64,6 +64,7 @@ export default {
         password: "",
         username: "", //商铺名
         emailstr: "",
+        email: "",
         id: ""
       },
       rules: {
@@ -118,6 +119,7 @@ export default {
     init() {
       this.registUser.username = base.getQueryString("shop");
       this.registUser.emailstr = base.getQueryString("email");
+      this.registUser.email = base.getQueryString("email");
       this.registUser.id = base.getQueryString("id");
       //  this.showEmail();
     },
@@ -138,13 +140,13 @@ export default {
             .catch(error => {
               this.$message("Interface timeout!");
             });
-         }
+        }
       });
     },
     showEmail(){
       if (this.registUser.emailstr){
         let title = "registered successfully,"
-            title += "Please go to "+ this.registUser.emailstr +" activate your account!"
+            title += "Please go to "+ this.registUser.emailstr +" !"
             this.$alert(title, 'Tips', {
             confirmButtonText: 'Confirm',
             callback: action => {

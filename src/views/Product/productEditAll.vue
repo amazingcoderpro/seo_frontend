@@ -30,7 +30,7 @@
         <div class="showNow">
             <p class="headSTitle">Search engine listing preview</p>
             <p class="title">{{allEditdata.showTitle}}</p>
-            <p class="colorGreen">charrcter.myshopify.com/products/current_product_handle</p>
+            <p class="colorGreen">{{user.username}}/products/current_product_handle</p>
             <p class="littleMsg description">{{allEditdata.showDescription}}</p>
         </div>
         <div class="el-loading-mask is-fullscreen" style="background-color: rgba(0, 0, 0, 0.7); z-index: 2000;" v-if="shadowState">
@@ -47,6 +47,7 @@ export default {
     name: "productEditAll",
     data() {
         return {
+            user:{},
             rules: {
                 remark_title: [
                     { required: true, message: "User title cannot be empty", trigger: "change" },
@@ -117,6 +118,11 @@ export default {
         if(localStorage.remark_description_p){
             this.allEditdata.remark_description = localStorage.remark_description_p;
         }
+        if(localStorage.user){
+            this.user = JSON.parse(localStorage.user);
+        }
+
+
         //this.init();
     },
     methods:{
@@ -127,7 +133,7 @@ export default {
             if(title){
                 url+=`?title=`+title;
             }
-             this.$axios(url).then(res => {
+            this.$axios(url).then(res => {
                 if(res.data.code == 1){
                     this.shadowState = false;
                     this.tableData = res.data.data;

@@ -28,7 +28,7 @@
         <div class="showNow">
             <p class="headSTitle">Search engine listing preview</p>
             <p class="title">{{allEditdata.showTitle}}</p>
-            <p class="colorGreen">charrcter.myshopify.com/products/current_product_handle</p>
+            <p class="colorGreen">{{user.username}}/products/current_product_handle</p>
             <p class="littleMsg description">{{allEditdata.showDescription}}</p>
         </div>
     </div>
@@ -41,6 +41,7 @@ export default {
     name: "CollectionsEditAll",
     data() {
         return {
+            user:{},
             rules: {
                 remark_title: [
                     { required: true, message: "User title cannot be empty", trigger: "change" },
@@ -111,6 +112,9 @@ export default {
         }
         if(localStorage.remark_description){
             this.allEditdata.remark_description = localStorage.remark_description;
+        }
+        if(localStorage.user){
+            this.user = JSON.parse(localStorage.user);
         }
         this.init();
     },

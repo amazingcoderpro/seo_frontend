@@ -38,6 +38,8 @@ export function LoginOut(){
   localStorage.removeItem('eleToken');
   localStorage.removeItem('store');
   localStorage.removeItem("user");
+  localStorage.removeItem("remark_title_p");
+  localStorage.removeItem("remark_description_p");
   router.push('/login');
 }
 

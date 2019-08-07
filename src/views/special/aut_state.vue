@@ -29,7 +29,8 @@ export default {
       init(){
         this.state = base.getQueryString('state') == null?1:base.getQueryString('state');
         setTimeout(() => {
-               this.$router.push('/Categore');
+              base.LoginOut();
+              this.$router.push('/login');
               // window.close();
         }, 5000);
       },

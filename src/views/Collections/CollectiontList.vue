@@ -36,7 +36,7 @@
                     <div class="showNow">
                         <p class="headSTitle">Search engine listing preview</p>
                         <p class="title">{{allEditdata.showTitle}}</p>
-                        <p class="colorGreen">charrcter.myshopify.com/products/current_product_handle</p>
+                        <p class="colorGreen">{{user.username}}/products/current_product_handle</p>
                         <p class="littleMsg description">{{allEditdata.showDescription}}</p>
                     </div>
                 </template>
@@ -60,7 +60,8 @@ import * as base from '../../assets/js/base'
     name: "CollectionsList",
     data() {
       return {
-          checked1:true,
+        user:{},
+        checked1:true,
         page:{
             // total:0,//默认数据总数
             pagesize:9999,//每页的数据条数
@@ -185,6 +186,9 @@ import * as base from '../../assets/js/base'
         }
     },
     mounted() {
+        if(localStorage.user){
+            this.user = JSON.parse(localStorage.user);
+        }
        // this.init();
     },
     methods:{
