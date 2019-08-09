@@ -47,14 +47,14 @@ textarea.titleTextarea{height:70px!important;}
 .showNow .description{width:600px;display:-webkit-box !important;overflow:hidden;text-overflow:ellipsis;word-break:keep-all;-webkit-box-orient:vertical;-webkit-line-clamp:2;}
 .LoginOutBtn{position:absolute;top:20px;right:20px;}
 @media screen and (min-width: 1600px) {
-    .shadowBox{width:1545px;margin-left: 10px;height: 165px;}
+    .shadowBox{width:1545px;margin-left: 10px;height: 125px;}
     .rightContainer {width: 100%}
     .CollectionsEditAll,
     .CollectionsList{width: 655px;float: left;height: 745px;}
     .CollectionsList{width: 967px;height: 745px;}
     .productEditAll,
-    .productList{width: 655px;float: left;height: 855px;top: 215px;}
+    .productList{width: 655px;float: left;height: 855px;top: 175px;}
     .productList{width: 840px;height: 855px;}
 }
-.shadowBox_s{width:840px;position:relative;margin-left:10px;-webkit-box-shadow:2px 5px 5px #ccc;box-shadow:5px 5px 5px #ccc;margin-bottom:15px;padding:20px;background:#F2F2F2;top: 215px;}
-.CollectionsEditAll{top: 215px;}
+.shadowBox_s{width:840px;position:relative;margin-left:10px;-webkit-box-shadow:2px 5px 5px #ccc;box-shadow:5px 5px 5px #ccc;margin-bottom:15px;padding:20px;background:#F2F2F2;top: 175px;}
+.CollectionsEditAll{top: 175px;}

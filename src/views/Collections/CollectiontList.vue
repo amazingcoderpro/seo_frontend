@@ -150,7 +150,7 @@ import * as base from '../../assets/js/base'
                         title = _title+"..."
                    }
                 }else{
-                    title = "Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.";
+                    title = "Here you can see the example of Meta Description that you will match with the relevant tag, it's will show you a snippet looks like in the google search results.";
                 }
                 this.allEditdata.showDescription = title;
                 this.allEditdata = this.allEditdata;
@@ -307,7 +307,7 @@ import * as base from '../../assets/js/base'
 
 <style>
 .CollectionsEditAll{min-height: 500px;}
-
+.el-form-item{margin-bottom: 10px!important;}
 
 .Collection_Name{padding-left: 50px;}
 .Operation_name{padding-left: 150px;}

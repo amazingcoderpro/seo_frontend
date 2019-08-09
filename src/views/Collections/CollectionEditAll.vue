@@ -65,7 +65,7 @@ export default {
                 desChecked:false,
                 searchTitle:'',
                 showTitle:"Here's an Example of Product Title for All of the Products",
-                showDescription:"Here you can see the example of Meta Description that you will match will the relevant tag, it's will show you a snippet looks like in the google search results.",
+                showDescription:"Here you can see the example of Meta Description that you will match with the relevant tag, it's will show you a snippet looks like in the google search results.",
             },
             tableData:[],
             subBtnState:false,

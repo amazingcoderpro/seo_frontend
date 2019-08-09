@@ -4,8 +4,8 @@
             <div class="headTitle MB30">
               <span>SEO META EDIT</span>
             </div>
-            <p class="headSTitle">Choose Conditions</p>
-            <el-form :model="searchData" class="demo-form-inline" label-width="0">
+            <p class="headSTitle" style="float:left;">Choose Conditions</p>
+            <el-form :model="searchData" class="demo-form-inline" label-width="0" style="float:left;margin-left:40px;">
               <el-form-item>
                 <el-select v-model="searchData.pagVal" placeholder="Pinterest"  :class="'W400'" @change="pagValchange">
                   <el-option v-for="(item,title) in pagArray" :key="title" :label="item.title" :value="item.value"></el-option>
