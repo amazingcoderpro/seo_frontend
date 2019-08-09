@@ -14,7 +14,7 @@
               <el-form-item v-if="searchTitleState">
                 <el-input v-model="searchData.searchTitle" placeholder="Title" :class="'W400'"></el-input>
               </el-form-item>
-              <el-form-item class="W768">
+              <el-form-item>
                 <el-button type="primary" icon="view" @click="searchFun()" class="FR">Load</el-button>
               </el-form-item>
             </el-form>
@@ -113,6 +113,6 @@ export default {
 </script>
 
 <style scoped>
-.headCate .el-form-item{display: inline-flex;}
+.headCate .el-form-item{display: inline-table;}
 </style>
 
