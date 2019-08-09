@@ -95,7 +95,7 @@ export default {
         'allEditdata.remark_title': {
             handler: function() {
                 let title = this.allEditdata.remark_title;
-                if(this.allEditdata.remark_title>70){
+                if(this.allEditdata.remark_title && this.allEditdata.remark_title.length>70){
                     title = this.allEditdata.remark_title.substring(0,70)+'...';
                 }
                 this.allEditdata.showTitle = title;
@@ -104,7 +104,7 @@ export default {
         'allEditdata.remark_description': {
             handler: function() {
                 let _des = this.allEditdata.remark_description;
-                if(this.allEditdata.remark_description.length>165){
+                if(this.allEditdata.remark_description && this.allEditdata.remark_description.length>165){
                    _des = this.allEditdata.remark_description.substring(0,165)+'...';
                 }
                 this.allEditdata.showDescription = _des;
@@ -112,20 +112,32 @@ export default {
         }
     },
     mounted() {
-        if(localStorage.remark_title_p){
-            this.allEditdata.remark_title = localStorage.remark_title_p;
-        }
-        if(localStorage.remark_description_p){
-            this.allEditdata.remark_description = localStorage.remark_description_p;
-        }
+        // if(localStorage.remark_title_p){
+        //     this.allEditdata.remark_title = localStorage.remark_title_p;
+        // }
+        // if(localStorage.remark_description_p){
+        //     this.allEditdata.remark_description = localStorage.remark_description_p;
+        // }
         if(localStorage.user){
             this.user = JSON.parse(localStorage.user);
         }
-
-
-        //this.init();
+        this.specileInit()
     },
     methods:{
+        specileInit(){
+            this.$axios.get(`/api/v1/account/store/`)
+            .then(res => {
+                if(res.data.code == 1){ 
+                    this.allEditdata.remark_title = res.data.data[0].product_title;
+                    this.allEditdata.remark_description = res.data.data[0].product_description;
+                }else{
+                    this.$message({message: "code Abnormal!",type: 'warning',center: true});
+                }
+            })
+            .catch(error => {
+                this.$message({message: error.message,type: 'warning',center: true});
+            });    
+        },
         init(title) {
             this.shadowState = true;
             this.allEditdata.searchTitle = title;
@@ -172,8 +184,8 @@ export default {
                         if(res.data.code == 1){
                             this.$emit('parentMethod',this.allEditdata.searchTitle);
                             this.$message({message: res.data.msg,type: 'success',center: true});
-                            localStorage.setItem("remark_title_p", this.allEditdata.remark_title);
-                            localStorage.setItem("remark_description_p", this.allEditdata.remark_description);
+                            // localStorage.setItem("remark_title_p", this.allEditdata.remark_title);
+                            // localStorage.setItem("remark_description_p", this.allEditdata.remark_description);
                         }else{
                             this.$message({message: res.data.msg,type: 'warning',center: true});
                         }

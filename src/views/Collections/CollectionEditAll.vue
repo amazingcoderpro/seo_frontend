@@ -45,11 +45,9 @@ export default {
             rules: {
                 remark_title: [
                     { required: true, message: "User title cannot be empty", trigger: "change" },
-                    // { min: 0, max: 100, message: "Length of 2 to 60 characters", trigger: "blur" }  
                 ],
                 remark_description: [
                     { required: true, message: "description cannot be empty", trigger: "blur" },
-                    // { min: 0, max: 500, message: "Length of 6 to 100 characters", trigger: "blur" }
                 ]
             },
             btnArray:[
@@ -84,22 +82,16 @@ export default {
         'allEditdata.remark_title': {
             handler: function() {
                 let title = this.allEditdata.remark_title;
-                if(this.allEditdata.remark_title.length>70){
+                if(this.allEditdata.remark_title && this.allEditdata.remark_title.length>70){
                    title = this.allEditdata.remark_title.substring(0,70)+'...';
                 }
                 this.allEditdata.showTitle = title;
             },
         },
-        //  'allEditdata.remark_title': {
-        //     handler: function() {
-        //         let title = this.allEditdata.remark_title;
-        //         this.allEditdata.showTitle = title;
-        //     },
-        // },
         'allEditdata.remark_description': {
             handler: function() {
                 let _des = this.allEditdata.remark_description;
-                if(this.allEditdata.remark_description.length>165){
+                if(this.allEditdata.remark_description && this.allEditdata.remark_description.length>165){
                    _des = this.allEditdata.remark_description.substring(0,165)+'...';
                 }
                 this.allEditdata.showDescription = _des;
@@ -107,19 +99,19 @@ export default {
         }
     },
     mounted() {
-        if(localStorage.remark_title){
-            this.allEditdata.remark_title = localStorage.remark_title;
-        }
-        if(localStorage.remark_description){
-            this.allEditdata.remark_description = localStorage.remark_description;
-        }
+        // if(localStorage.remark_title){
+        //     this.allEditdata.remark_title = localStorage.remark_title;
+        // }
+        // if(localStorage.remark_description){
+        //     this.allEditdata.remark_description = localStorage.remark_description;
+        // }
         if(localStorage.user){
             this.user = JSON.parse(localStorage.user);
         }
         this.init();
     },
     methods:{
-        init(title) {
+        init(title) { 
             this.allEditdata.searchTitle = title;
             let url = `/api/v1/collection/`;
             if(title){
@@ -139,7 +131,21 @@ export default {
             })
             .catch(error => {
                 this.$message({message: error.message,type: 'warning',center: true});
-            });      
+            });  
+            
+          
+            this.$axios.get(`/api/v1/account/store/`)
+            .then(res => {
+                if(res.data.code == 1){ 
+                    this.allEditdata.remark_title = res.data.data[0].collection_title;
+                    this.allEditdata.remark_description = res.data.data[0].collection_description;
+                }else{
+                    this.$message({message: "code Abnormal!",type: 'warning',center: true});
+                }
+            })
+            .catch(error => {
+                this.$message({message: error.message,type: 'warning',center: true});
+            });     
 
         },
         getIdList(){
@@ -163,8 +169,8 @@ export default {
                         if(res.data.code == 1){
                             this.$emit('parentMethod',this.allEditdata.searchTitle);
                             this.$message({message: res.data.msg,type: 'success',center: true});
-                            localStorage.setItem("remark_title", this.allEditdata.remark_title);
-                            localStorage.setItem("remark_description", this.allEditdata.remark_description);
+                            // localStorage.setItem("remark_title", this.allEditdata.remark_title);
+                            // localStorage.setItem("remark_description", this.allEditdata.remark_description);
                         }else{
                             this.$message({message: res.data.msg,type: 'warning',center: true});
                         }
