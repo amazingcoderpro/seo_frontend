@@ -21,8 +21,8 @@
               <el-form-item v-if="searchTitleState">
                 <el-input v-model="searchData.searchTitle" placeholder="Title" :class="'W400'"></el-input>
               </el-form-item>
-              <el-form-item class="W980">
-                <el-button type="primary" icon="view" @click="searchFun()" class="FR">Load Products</el-button>
+              <el-form-item>
+                <el-button type="primary" icon="view" @click="searchFun()" class="FR">Load</el-button>
               </el-form-item>
             </el-form>
         </div>

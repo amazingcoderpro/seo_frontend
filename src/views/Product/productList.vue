@@ -321,4 +321,6 @@ import * as base from '../../assets/js/base'
 <style>
 .productList .el-table th>.cell {text-align: center;}
 .productList .el-table__expanded-cell[class*=cell]{padding:20px 30px;}
+.productList .el-button+.el-button{margin-left: 7px;}
+
 </style>
