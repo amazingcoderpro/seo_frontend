@@ -78,7 +78,7 @@ export default {
                     this.subBtnState = false;
                 }
             },
-        },
+        }, 
         'allEditdata.remark_title': {
             handler: function() {
                 let title = this.allEditdata.remark_title;
@@ -146,7 +146,6 @@ export default {
             .catch(error => {
                 this.$message({message: error.message,type: 'warning',center: true});
             });     
-
         },
         getIdList(){
             this.allEditdata.product_list_array = [];
@@ -164,7 +163,7 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.allEditdata.collection_list = JSON.stringify(this.allEditdata.product_list_array); 
-                    this.$axios.post('/api/v1/collection_motify/',this.allEditdata)
+                    this.$axios.post('/api/v1/collection_all/motify/',this.allEditdata)
                     .then(res => {
                         if(res.data.code == 1){
                             this.$emit('parentMethod',this.allEditdata.searchTitle);

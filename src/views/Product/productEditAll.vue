@@ -179,7 +179,7 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.allEditdata.product_list = JSON.stringify(this.allEditdata.product_list_array); 
-                    this.$axios.post('/api/v1/product_motify/',this.allEditdata)
+                    this.$axios.post('/api/v1/product_all/motify/',this.allEditdata)
                     .then(res => {
                         if(res.data.code == 1){
                             this.$emit('parentMethod',this.allEditdata.searchTitle);
