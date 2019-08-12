@@ -88,8 +88,11 @@ router.beforeEach((to,from,next) =>{
   }else{
     if(isLogin) {
         if(user && shopString && user.username != shopString){  
-          localStorage.removeItem('eleToken')
+          localStorage.removeItem('eleToken');
+          localStorage.removeItem('store');
           localStorage.removeItem("user");
+          localStorage.removeItem("remark_title_p");
+          localStorage.removeItem("remark_description_p");
           router.push('/login')
           // next('/login')
         }else{

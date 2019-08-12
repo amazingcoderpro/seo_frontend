@@ -4,6 +4,7 @@
         <div class="rightContainer">
             <router-view></router-view>
         </div>
+        <input id="pageToken" type="hidden" :value="eleToken">
     </div>
 </template>
 
@@ -13,6 +14,15 @@ export default {
     name: "index",
     components:{
         HeadNav
+    },
+    data(){ 
+        return {
+            eleToken:""
+        }   
+    },
+    created(){            // 回车事件
+      this.eleToken = localStorage.eleToken;
+
     }
 }
 </script>
