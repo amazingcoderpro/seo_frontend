@@ -116,11 +116,14 @@ export default {
       this.registUser.email = base.getQueryString("email");
       this.registUser.id = base.getQueryString("id");
       //  this.showEmail();
+      localStorage.removeItem("eleToken","user")
     },
     submitForm(formName) {
+      debugger 
       this.isDisable = true // 可以点击
       this.$refs[formName].validate(valid => {
         if (valid) {
+         debugger
           this.$axios.put(`/api/v1/account/set_password/${this.registUser.id}/`,this.registUser)
             .then(res => {
               this.isDisable = false;   //执行请求后就不能点击了
