@@ -2,13 +2,7 @@
   <div class="shopfy_regist">
     <section class="form_container">
       <span class="title">SEO META EDIT</span>
-      <el-form
-        :model="registUser"
-        :rules="rules"
-        ref="loginForm"
-        label-width="160px"
-        class="loginForm"
-      >
+      <el-form :model="registUser" :rules="rules" ref="loginForm" label-width="160px" class="loginForm">
         <!-- 账号 -->
         <el-form-item label="Shop Url :" prop="username">
           <el-input v-model="registUser.username" disabled></el-input>
@@ -162,6 +156,10 @@ export default {
   }
 };
 </script>
+
+<style>
+.shopfy_regist .loginForm .el-form-item{margin-bottom: 20!important;}
+</style>
 
 <style scoped>
 .shopfy_regist{position:relative;width:100%;height:100%;background:url(../../assets/img/bg.jpg) no-repeat center center;background-size:100% 100%;}

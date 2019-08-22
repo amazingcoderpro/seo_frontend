@@ -307,8 +307,7 @@ import * as base from '../../assets/js/base'
 
 <style>
 .CollectionsEditAll{min-height: 500px;}
-.el-form-item{margin-bottom: 10px!important;}
-
+/* .CollectionsList .el-form-item{margin-bottom: 10px!important;} */
 .Collection_Name{padding-left: 50px;}
 .Operation_name{padding-left: 150px;}
 </style>
