@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # sea_frontend
 
 ## Project setup
